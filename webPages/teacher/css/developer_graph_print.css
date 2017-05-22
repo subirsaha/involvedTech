@@ -1,0 +1,211 @@
+/*************************  CSS ONLY FOR PRINT FUNCTION   ****************************/
+.performance-table-tr {
+     color: #337ab7;
+    text-decoration: none;
+    margin-right: 50% !important;
+}
+
+#performance .p-red, #student_pop .p-red {
+    border-color: transparent transparent #ff3c1f;
+    border-style: solid;
+    border-width: 7px 5px;
+    content: "";
+    display: inline-block;
+    margin-left: 8px;
+    margin-top: -1px;
+    position: absolute;
+    top: 50%;
+    border-top: 7px solid;
+    border-bottom: none;
+    transform: translateY(-50%);
+}
+
+#performance .p-green:after, #student_pop .p-green:after {
+    border-color: transparent transparent #6bc04b;
+    border-style: solid;
+    border-width: 7px 5px;
+    content: "";
+    display: inline-block;
+    margin-left: 8px;
+    margin-top: -5px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+
+.performance-table-td {
+    padding-top: 12px !important;
+    padding-bottom: 12px !important;
+}
+
+/*##############  For student_performance_print print Css Start Here  ###############*/
+
+.student_category_print{
+    float: left;
+}
+.sub_name_print{
+    text-decoration: none;
+}
+.subject_print{
+    font-size: 18px !important;
+    color: #54c9e8 !important;
+    margin: 10px 0 !important;
+    display: table-row;
+}
+
+.inner_right .performance-table-th {
+     text-align: center !important; 
+}
+
+.inner_right .performance-table-th:first-child {
+     padding-left: 0 !important; 
+}
+.inner_right{
+    padding: 0px 0px 0px !important;
+}
+i.fa.fa-caret-down {
+    /*margin-left: -5px !important;*/
+}
+
+.performance-table-th:first-child {
+   width: 31% !important;
+}
+
+.graph_pic{
+    padding: 0 25px !important;
+}
+
+.full_std_srch_content .performance-table-th:nth-child(1) {
+    width: 54% !important;
+}
+.full_std_srch_content .performance-table-th:nth-child(2) {
+    /*width: 19% !important;*/
+    width: 14% !important;
+}
+.full_std_srch_content .performance-table-th:nth-child(3) {
+    width: 15% !important;
+}
+
+
+/*##############  For student_performance_print print Css Ends Here  ###############*/
+
+@media print {
+
+@page {
+    margin-bottom:15px;
+    /*border: 2px solid #bebebe;*/
+}
+
+body
+{
+  margin: 5mm 5mm 5mm 0mm;
+  /*border: 1px solid #bebebe;*/
+
+}
+.performance-table-th{
+    background: #bfbfbf;
+}
+
+
+
+    .performance-table-th:first-child{
+        @page{
+            size:landscape;
+            width: 31% !important;
+        }
+    }
+
+    .performance-table-th:first-child{
+        @page{
+            size:portrait;
+            width: 80% !important;
+        }
+    }
+
+
+
+}
+
+.performance-name a {
+    display: block !important;
+}
+.performance-table-td{
+    vertical-align: middle;
+    width: 1.4% !important;
+}
+.performance-table-th:first-child{
+    /*width: 31% !important;*/
+}
+.print_page i{
+   display: block;
+}
+
+
+.percentage_new.p-green i.fa-caret-up.fa, .percentage_new.p-red i.fa-caret-down.fa{
+     margin-left: 10px !important; 
+}
+
+#modal_horizontal_line .last_cell_d.p-green i {
+    margin-left: 0.0em;
+}
+
+.fa-caret-up, .fa-caret-down{
+    left: 0% !important;
+}
+
+.last_cell_d i.fa.fa-caret-down {
+    margin-left: 0.0em;
+}
+
+.task_inr_label .performance-table-th:nth-child(3) {
+    padding-left: 55px;
+}
+
+.task_inr_label .performance-table-th:nth-child(4) {
+    width: 18%;
+}
+
+
+@media screen and (orientation:portrait) {
+    .performance-table-th:first-child{
+    width: 29% !important;
+}
+
+}
+
+.performance-table-th{
+     width:213px !important;
+}
+.performance-table-th:first-child{
+     width:340px !important;
+}
+
+.task_inr_label .performance-table-th:nth-child(2){
+     padding-left : 0% !important;
+}
+.task_inr_label .performance-table-th:nth-child(3){
+     padding-left:0% !important;
+}
+/*#modal_horizontal_line .performance-table-td
+{
+     width:276px !important;
+}*/
+.student_pic1{
+     width:340px !important;
+}
+.backcolor_class{
+     left:45% !important;
+     float :none;
+}
+.trGrd{
+     left:10% !important;
+     float : none !important;
+}
+.grd{
+     left:2% !important;
+}
+#modal_horizontal_line .performance-table-td {
+    /* width: 8% !important; */
+    width: 340px !important;
+}

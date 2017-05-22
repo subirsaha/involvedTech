@@ -1,0 +1,2042 @@
+<!-- <script>
+	$("head").append('<link href="css/bootstrap.css" rel="stylesheet" type="text/css"/>').append('<link href="css/bootstrap-select.css" rel="stylesheet" type="text/css"/>').append('<link href="css/custom.css" rel="stylesheet" type="text/css"/>').append('<link href="css/developer.css" rel="stylesheet" type="text/css"/>').append('<link href="css/responsive.css" rel="stylesheet" type="text/css"/>');	
+</script> -->
+<body>
+<div id="preloader">
+	<div id="status"></div>
+</div>
+<div id="printpreloader" style="display: none;">
+	<div id="printstatus">Please close the print window to access the site</div>
+</div>
+<div id="supportfeature" style="display: none;">
+	<div id="printstatus1"><b>{{featureData}} has been disabled by the school</b></div>
+</div>
+<div id="preloader_right_content1" style="display:none">
+	<div id="status_right_content1"></div>
+</div>
+
+	
+<div class="outter_wrap">
+<!--header start-->
+<div class="header_part clearfix">
+	<div class="container">
+    	<h1><a class="custome_cursor"><img src="images/logo.png" alt=""></a></h1>
+        <div class="header_right">
+        	<div class="search_area clearfix" id="searchdiv">
+            	<input id="searchterm" placeholder="Search a student" type="text" autocomplete="off">
+                <button id="srch"><i class="fa fa-search" aria-hidden="true" ></i></button>
+				<!--<div id="search_cross" class="search-cross"><img src="images/search-cross.png" alt="search-cross" /></div>-->
+                <div class="search_reasult">
+					<div class="user_box clearfix" id="errordiv" style="text-align: center;padding-top: 10px;padding-right: 10px;padding-bottom: 10px;padding-left: 10px;display: none">
+					</div>
+					<div class="srch_data">
+						<!--<div>{{searchResListErr}}</div>-->
+						<div class="user_box clearfix stdprof move" ng-repeat="res in searchResList" id="search_div{{$index}}">
+							<a data-target="#student_pop" data-toggle="modal" class="active custome_cursor" ng-click="studentProfile(res.Id,res.Firstname,res.Lastname,res.YearGroup,res.Image,res.IsUnlocked)" id="search_div_anchor{{$index}}">
+								<div ng-class="res.IsUnlocked == true ? 'outr_border' :''" class="user_pic"><img data-ng-src="data:image/png;base64,{{res.Image}}" alt="performance-pic"></div>
+								<div class="user_details">
+									<h3>{{res.Firstname}} {{res.Lastname}}</h3>
+									<span>{{res.YearGroup}}</span>
+								</div>
+							</a>
+						</div>
+					</div>
+					<input type="hidden" id="hover_div" value="-1">
+					<div class="user_box clearfix" id="closediv" style="text-align: center;cursor: pointer;color: white;background-color: gray; padding-top:5px;padding-right: 5px;padding-bottom: 5px;padding-left: 5px;"><b>Clear search</b></div>
+                </div>
+		
+            </div>
+            <div class="setting_right">
+            	<a class="custome_cursor" id="open_settings_popup" data-toggle="modal" data-target="#setting" ng-click="settings();"><img src="images/settiing_icon.png" alt=""></a>
+                <a class="custome_cursor" data-toggle="modal" data-target="#logout_modal"><img src="images/logout_icon.png" alt=""></a>
+            </div>
+        </div>
+    </div>
+</div>
+<!--header end-->
+
+<!--main content-->
+<div class="inner_content">
+    <div class="container">
+        <div class="side_panel">
+            <div class="teacher_profile">
+                <div class="user_pic_d"><img data-ng-src="data:image/png;base64,{{TeacherImage}}" alt=""></div>
+                <h3>{{TeacherTitle}} {{TeacherFirstname}} {{TeacherLastname}}</h3>
+                <span>{{TeacherSchoolName}}</span>
+            </div>
+            <div class="class_nav">
+                <ul>
+                    <li class="active" id="myClasses" ng-click="">
+						<a data-toggle="{{toggle_status_my_classes}}" data-target="#sectionA" id="my_classes" ng-click="cancelClickTab('my_classes',$event);myClassesResponse();" class="custome_cursor">My Classes</a>
+					</li>
+                    <li id="myTimetable">
+						<a data-toggle="{{toggle_status_my_timetable}}" data-target="#sectionB" id="my_timetable" ng-click="cancelClickTab('my_timetable',$event);myTimetable();" class="custome_cursor">My Timetable
+						</a>
+					</li>
+                    <li id="myInbox">
+                        <a data-toggle="{{toggle_status_my_inbox}}" data-target="#sectionC" id="my_inbox"  ng-click="cancelClickTab('my_inbox',$event);myInbox();" class="custome_cursor">
+                            My Inbox
+							
+                           <sup id="myInboxUnreadMessageCount" ng-if="UnreadInboxCount != 0 || UnreadInboxCount != ''">{{UnreadInboxCount}}</sup>
+					
+                        </a>
+                    </li>
+                    <li data-toggle="{{toggle_status_my_task}}" data-target="#sectionD" id="myTask" ng-click="myTask(1);" class="">
+						<a ng-click="removeWeekRangeCookie();cancelClickTab('my_task',$event);" id="myTaskInner" class="custome_cursor">My Tasks</a>
+		    </li>
+		     <!--<li id="myTask" class="">
+						<a data-toggle="{{toggle_status_my_task}}" data-target="#sectionD" ng-click="removeWeekRangeCookie();cancelClickTab('my_task',$event);myTask(1);" id="myTaskInner" href='javascript:void(0);'>My Tasks</a>
+		    </li>-->
+				
+                </ul>
+            </div>
+        </div>
+        <div class="table_outter">
+            <div class="right_content tab-content">
+				
+		<div id="preloader_right_content" style="display:none">
+			<div id="status_right_content"></div>
+		</div>		
+				<!--MY CLASSES SECTION start-->
+            <div id="sectionA" class="tab-pane fade in active tabcustomheight">
+						<div id="preloader_right_content12" style="display:none">
+							<div id="status_right_content12"></div>
+						</div>
+						
+						<div id="preloader_right_content4" style="display:none">
+							<div id="status_right_content4"></div>
+						</div>
+						<div class="sky_head clearfix">
+							<div class="panel_left">Class </div>
+							<div class="panel_right">
+							   <!-- Class Performance
+								<a href="#"><img src="images/notification.png" alt=""></a>-->
+							</div>
+						</div>
+						<div id="content-1" class="scrl_inr">
+							<div id="noRecord4" class="noRecordClass">
+								<div><b>{{classListMessage}}</b></div>
+								<div>{{classListMessage1}}</div>
+								<div>{{classListMessage2}} </div>
+								<div>{{classListMessage3}} <a href="#" ng-click="settings_popup_open();">{{classListMessage4}}</a></div>
+							</div>
+							<div class="class_row clearfix showStudentDiv" ng-repeat="x in myClasses">
+								<div class="panel_left" data-toggle="tab" data-target="#sectionE" ng-click="clickRow();classPerformance(x.Id,x.Name,x.SubjectName);" style="cursor:pointer">
+									<div class="glob_box orange">
+										<span>{{x.StudentCount}}</span>
+									</div>
+									<div class="mac_sc">
+										<div class="title">{{x.Name}}</div>
+										<div class="subject">{{x.SubjectName}}</div>
+										<!--<div class="link_area">
+											<a data-toggle="tab" data-target="#sectionE" ng-click="clickTab('performance');classPerformance(x.Id,x.Name,x.SubjectName);" href= 'javascript:void(0);'>
+												<img src="images/pic1.png" alt="">Performance
+											</a>
+											<a data-toggle="tab" data-target="#sectionE" ng-click="clickTab('task');createTask(x.Id,x.Name,x.SubjectName);" href='javascript:void(0);'>
+												<img src="images/pic2.png" alt="">Create Task 
+											</a>
+											<a data-toggle="tab" data-target="#sectionE" ng-click="clickTab('message');sendMessage(x.Id,x.Name,x.SubjectName);" href='javascript:void(0);'>
+												<img src="images/pic3.png" alt="">Message Parent
+											</a>
+										</div>-->
+									</div>
+								</div>
+								<div class="panel_right">
+									<div class="cell_panel">
+									 <a data-toggle="tab" data-target="#sectionE" ng-click="clickTab('performance');classPerformance(x.Id,x.Name,x.SubjectName);" class="custome_cursor">
+									   <span><img src="images/sml_icon1.png" alt=""></span>
+									   Performance    
+									 </a>
+								   </div> 
+								   <div class="cell_panel">
+									 <a data-toggle="tab" data-target="#sectionE" ng-click="clickTab('task');createTask(x.Id,x.Name,x.SubjectName);" class="custome_cursor">
+										 <span><img src="images/sml_icon2.png" alt=""></span>
+										 Create Task 
+									 </a>
+								   </div>
+								   <div class="cell_panel">
+									 <a data-toggle="tab" data-target="{{msgDataTarget}}" ng-click="clickTab('message');sendMessage(x.Id,x.Name,x.SubjectName);" class="custome_cursor">
+										 <span><img src="images/sml_icon3.png" alt=""></span>
+										 Message Parent
+									 </a>
+								   </div>
+								</div>
+							</div>
+					</div>
+                </div>
+				<!--MY CLASSES SECTION end-->
+				
+				<!--MY TIMETABLE SECTION start-->
+				<div id="sectionB" class="tab-pane fade in active">
+                	<div id="preloader_right_content14" style="display:none">
+						<div id="status_right_content14"></div>
+					</div>
+                    <div class="sky_head clearfix">
+                        <div class="panel_left">My Timetable </div>
+                    </div>
+                    <div class="inr_content">
+                        <div class="wk_tab">
+                           <a class="active" href="#">Current Week</a>
+                           <!--<a href="#">Week 2</a>-->
+                        </div>
+                        <div class="table_outter_new clearfix">
+<!--
+                            <div class="left_list">
+                                <ul>
+                                    <li>
+                                        <span>P1</span>
+                                        10:45 - 11:30
+                                    </li>
+                                    <li>
+                                        <span>P2</span>
+                                        11:45 - 12:30
+                                    </li>
+                                    <li>
+                                        <span>P3</span>
+                                        13:30 - 14:45
+                                    </li>
+                                    <li>
+                                        <span>P4</span>
+                                        15:00 - 15:45
+                                    </li>
+                                    <li>
+                                        <span>P5</span>
+                                        15:45 - 17:00
+                                    </li>
+                                </ul>
+                            </div>
+-->
+                            <div class="right_table">
+                                <div class="week_table_outr">
+                                    <div class="week_table">
+                                        <div class="week_row week_row_hd">
+                                            <div class="week_cell">&nbsp;</div>
+                                            <div class="week_cell">Monday</div>
+                                            <div class="week_cell">Tuesday</div>
+                                            <div class="week_cell">Wednesday</div>
+                                            <div class="week_cell">Thursday</div>
+                                            <div class="week_cell">Friday</div>
+                                        </div> 
+                                    </div>
+                                </div>
+                                <div class="week_table_outr2" id="content-2">   
+                                     <div class="week_table">
+                                        <div class="week_row" ng-repeat="res in timetableRes">
+                                            <div class="week_cell left_list frst_cell">
+												<span>P{{$index+1}}</span>
+												<div class="blackText" ng-if="(res.DayLessons[0].Lessons!='')">
+													{{res.DayLessons[0].Lessons[0].Start | date:"HH:mm"}} - {{res.DayLessons[0].Lessons[0].End | date:"HH:mm"}}</div>
+												<div class="blackText" ng-if="(res.DayLessons[0].Lessons=='') &&
+												(res.DayLessons[1].Lessons !='')">
+													{{res.DayLessons[1].Lessons[0].Start | date:"HH:mm"}} - {{res.DayLessons[1].Lessons[0].End | date:"HH:mm"}}</div>
+												<div class="blackText" ng-if="(res.DayLessons[0].Lessons=='') &&
+												(res.DayLessons[1].Lessons =='') &&
+												(res.DayLessons[2].Lessons !='')">
+													{{res.DayLessons[2].Lessons[0].Start | date:"HH:mm"}} - {{res.DayLessons[2].Lessons[0].End | date:"HH:mm"}}</div>
+												<div class="blackText" ng-if="(res.DayLessons[0].Lessons=='') &&
+												(res.DayLessons[1].Lessons =='') &&
+												(res.DayLessons[2].Lessons =='') &&
+												(res.DayLessons[3].Lessons !='')">
+													{{res.DayLessons[3].Lessons[0].Start | date:"HH:mm"}} - {{res.DayLessons[3].Lessons[0].End | date:"HH:mm"}}</div>
+												<div class="blackText" ng-if="(res.DayLessons[0].Lessons=='') &&
+												(res.DayLessons[1].Lessons =='') &&
+												(res.DayLessons[2].Lessons =='') &&
+												(res.DayLessons[3].Lessons =='') &&
+												(res.DayLessons[4].Lessons !='')">
+													{{res.DayLessons[4].Lessons[0].Start | date:"HH:mm"}} - {{res.DayLessons[4].Lessons[0].End | date:"HH:mm"}}</div>
+                                            </div>
+                                            <div class="week_cell" ng-repeat="data in res.DayLessons" ng-if="$index<5">
+                                                <span>{{data.Lessons[0].ClassName}}</span>
+                                                <div ng-if="data.Lessons!='' && data.Lessons[0] != null && data.Lessons[0] != undefined">Room {{data.Lessons[0].RoomCode}}</div>
+                                            </div>
+                                        </div>  
+                                    </div> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+				<!--MY TIMETABLE SECTION end-->
+				
+				<!--MY INBOX SECTION start-->
+                <div id="sectionC" class="tab-pane tabcustomheight fade">
+                    <div class="sky_head clearfix">
+                        <div class="panel_left">Parent Messaging</div>
+                    </div>
+					<form>
+						<div class="search-user scrl_inr clearfix myNoINnernet"></div>
+						<div class="search-user scrl_inr clearfix myInINnernet">
+							<div id="preloader_right_content8" style="display:none">
+								<div id="status_right_content8"></div>
+							</div>
+							
+							<input type="hidden" id="noStudentMsg" value="{{noStudentMsg}}">
+							
+							<div class="search-user-side" id="LHS_Section">
+								
+								<!--<div id="preloader_right_content15">
+										<div id="status_right_content15"></div>
+									</div>-->
+								<div id="preloader_left_inbox" style="display:none">
+									<div id="status_left_inbox"></div>
+								</div>
+								<div class="top_border_user_box">
+									<div class="search_area clearfix" id="searchdiv1">
+										<input type="text" id="searchterm1" placeholder="Search or start a new chat: Enter student name" autocomplete="off">
+										<button id="srch1"><i class="fa fa-search" aria-hidden="true"></i></button>
+										
+										<div class="search-task search_reasult1">
+											<div class="user_box clearfix" id="errordiv1" style="text-align: center;padding-top: 10px;padding-right: 10px;padding-bottom: 10px;padding-left: 10px;display: none">
+											</div>
+											<div class="new_search content">
+												<div class="user_box clearfix stdprof1 move1" ng-repeat="res in searchResList1" id="search_div1{{$index}}">
+													<a  id="search_div_anchor1{{$index}}" ng-click="searchStudentSelected(res.Id,res.Firstname,res.Lastname,res.ParentsName,res.SubjectName,res.YearGroup,res.Image,res.IsUnlocked,res.ClassId,res.ClassName)" class="active custome_cursor">
+														<div ng-class="res.IsUnlocked == true ? 'outr_border' :''" class="user_pic"><img data-ng-src="data:image/png;base64,{{res.Image}}" alt="performance-pic"></div>
+														<div class="user_details">
+															<h3>{{res.Firstname}} {{res.Lastname}} <span> ({{res.ClassName}})</span></h3>
+															<span>{{res.ParentsName}}</span>
+														</div>
+													</a>
+												</div>
+										   </div>
+										   <input type="hidden" id="hover_div1" value="-1">
+										   <div class="clear_search" id="closediv1" style="text-align: center;cursor: pointer;color: white;background-color: gray; padding-top:5px;padding-right: 5px;padding-bottom: 5px;padding-left: 5px;"><b>Clear Search</b></div>
+										</div>
+									</div>
+								</div>
+								
+								<div class="student_list content">
+									
+									<div id="append_search_div"></div>
+									
+									<!--<div class="user_box top_border_user_box clearfix studSelect" id="msgstud{{Id}}{{ClassId}}'" ng-click="studentInboxPerformanceResponse(Id,ClassId,Firstname,Lastname,ParentsName,Image,ClassName,IsUnlocked)">
+										<label>
+											<div class="user_pic {{style_class}}"><img alt="" src="data:image/png;base64,{{Image}}"></div>
+											<div class="user_details">
+												<h3>{{Firstname}} {{Lastname}} ({{ClassName}})</h3>
+												<span>{{ClassName}}</span>
+											</div>
+										</label>
+									</div>-->
+									<div ng-if="studentListInbox == ''" class="noMsgClass" id="noMsgClass">
+										<div class="no_chat1">No Active Chats Found…</div>
+										<div class="no_chat2">Start a new chat with a parent using the search bar under Parent Messaging.</div>
+									</div>
+									<div class="user_box top_border_user_box clearfix msgstud"
+										 ng-repeat="y in studentListInbox"
+										 ng-click="studentInboxPerformanceResponse(y.Id,y.ClassId,y.Firstname,y.Lastname,y.ParentsName,y.Image,y.ClassName,y.IsUnlocked,y.SubjectName);"
+										 id="msgstud{{y.Id}}{{y.ClassId}}"
+										 UnreadMessageCount="{{y.UnreadMessageCount}}">
+										<!-- ng-class="param==0?{studSelect: $index === 0}:''">-->
+										
+										<label class="studRow">
+											<div ng-class="y.IsUnlocked == true ? 'outr_border' :''" class="user_pic"><img alt="" data-ng-src="data:image/png;base64,{{y.Image}}"></div>
+											<div class="user_details">
+												<h3>{{y.Firstname}} {{y.Lastname}} <span>({{y.ClassName}})</span></h3>
+												<span>{{y.ParentsName}}</span>
+											</div>
+										</label>
+									
+										<span class="user-noti" id="unreadMsg{{y.Id}}{{y.ClassId}}" UnreadMessageCount="{{y.UnreadMessageCount}}" ng-if="(y.UnreadMessageCount != 0)">{{y.UnreadMessageCount}}</span>
+									</div>
+									
+								</div>
+								<input type="hidden" id="studentIds" value="">
+								<input type="hidden" id="classIds" value="">
+							</div>
+				
+							<!--<div id="noMsg" class="noMsgClass" style="text-align: center;margin-top: 10%;">Please select student to see the message history</div>-->
+							<div id="noParent" style="display:none">No parent Name.You cannot send any message.</div>
+							<div class="search-user-side-right noInernet">
+							</div>
+							<div class="search-user-side-right extRght">
+								<div id="preloader_right_inbox" style="display:none">
+									<div id="status_right_inbox"></div>
+								</div>
+								<div id="preloader_right_inbox1" style="display:none">
+									<div id="status_right_inbox1">Loading more messages...</div>
+								</div>
+								<div id="nomsgfound" style="display:none">
+									<div id="nomsgfound1">No more messages found</div>
+								</div>
+								<div class="enagagedSec" id="noMsg" >
+									<div class="enagaged-inner">
+									    <div class="enagaged-inner1">
+										<div class="enagaged-inner2">
+										    <img src="images/picA1.png" alt=""/>
+										</div>
+									    </div>
+									</div>
+									<div class="engagedText">
+									    <h2>Keep parents engaged and informed</h2>
+									    <p>Please select a student chat to see message <br> history and communicate with parents.</p>
+									</div>
+								</div>
+								<!--<div class="srch-userpad" id="rhs_section1">-->
+								<div class="srch-userpad RHS_Section clearfix">
+									<div class="side-top">
+										<label for="student1">
+											<div ng-class="IsUnlockedInbox == true ? 'outr_border' :''" class="user_pic"><img alt="" data-ng-src="data:image/png;base64,{{ImageInbox}}" class="mCS_img_loaded"></div>
+											<div class="user_details">
+												<h3>{{FirstnameInbox}} {{LastnameInbox}}</h3>
+												<span>{{ClassNameInbox}}({{SubjectName}})</span>
+											</div>
+										</label> 
+									</div>
+									<!---ATTENDANCE begin--------------------->
+									<ul class="side-list">
+										<li>
+											<h3>{{studentInboxAttendanceHeader}}</h3>
+											<span ng-if="studentInboxAttendanceTrend == 1" class="p-green">{{studentInboxAttendance}}{{studentInboxAttendanceUnit}} <img src="images/side-arrw.png" alt="" /></span>
+											<span ng-if="studentInboxAttendanceTrend == 3 " class="p-red">{{studentInboxAttendance}}{{studentInboxAttendanceUnit}} <img src="images/red-side-arrw.png" alt="" /></span>
+											<span ng-if="studentInboxAttendanceTrend == 2" class="orange_text">{{studentInboxAttendance}}{{studentInboxAttendanceUnit}}</span>
+											<span ng-if="studentInboxAttendanceTrend == 0">{{studentInboxAttendance}}{{studentInboxAttendanceUnit}}</span>
+											<span ng-if="studentInboxAttendanceTrend == '' && studentInboxAttendanceTrend == null && studentInboxAttendanceTrend == undefined"> </span>
+										</li>
+										
+										<!---TARGET begin--------------------->
+										<li>
+											<h3>{{studentInboxTargetHeader}}</h3>
+											<span ng-if="studentInboxTargetTrend == 1" class="p-green">{{studentInboxTargetGrade}}{{studentInboxTargetUnit}} <img src="images/side-arrw.png" alt="" /></span>
+											<span ng-if="studentInboxTargetTrend == 3 " class="p-red">{{studentInboxTargetGrade}}{{studentInboxTargetUnit}} <img src="images/red-side-arrw.png" alt="" /></span>
+											<span ng-if="studentInboxTargetTrend == 2" class="orange_text">{{studentInboxTargetGrade}}{{studentInboxTargetUnit}}</span>
+											<span ng-if="studentInboxTargetTrend == 0">{{studentInboxTargetGrade}}{{studentInboxTargetUnit}}</span>
+											<span ng-if="studentInboxTargetTrend == '' && studentInboxTargetTrend == null && studentInboxTargetTrend == undefined"> </span>
+											<!--<span style="color:#000;" ng-if="studentInboxTargetTrend > 0">{{studentInboxTargetGrade}}{{studentInboxTargetUnit}}</span>
+											<span style="color:#000;" ng-if="studentInboxTargetTrend == 0">{{studentInboxTargetGrade}}{{studentInboxTargetUnit}}</span>
+											<span style="color:#000;" ng-if="studentInboxTargetTrend == '' && studentInboxTargetTrend == null && studentInboxTargetTrend == undefined">{{studentInboxTargetGrade}}{{studentInboxTargetUnit}}</span>-->
+										</li>
+										
+										<!---GRADE begin--------------------->
+										<li>
+											<h3>{{studentInboxGradeHeader}}</h3>
+											<span ng-if="studentInboxGradeTrend == 1" class="p-green">{{studentInboxLastGrade}}{{studentInboxGradeUnit}} <img src="images/side-arrw.png" alt="" /></span>
+											<span ng-if="studentInboxGradeTrend == 3" class="p-red">{{studentInboxLastGrade}}{{studentInboxGradeUnit}} <img src="images/red-side-arrw.png" alt="" /></span>
+											<span ng-if="studentInboxGradeTrend == 2" class="orange_text">{{studentInboxLastGrade}}{{studentInboxGradeUnit}}</span>
+											<span ng-if="studentInboxGradeTrend == 0">{{studentInboxLastGrade}}{{studentInboxGradeUnit}}</span>
+											<span ng-if="studentInboxGradeTrend == '' && studentInboxGradeTrend == null && studentInboxGradeTrend == undefined"> </span>
+										</li>
+									</ul>
+								</div>
+								
+								<div class="other-teacher RHS_Section"  id="rhs_section2">
+								    <a href="">Other Teachers: {{otherTeachers}}</a>
+									<a href="">{{ParentsNameInbox}}</a>
+								</div>
+								<input type="hidden" id="latestmessagetime" value="{{latestmessagetime}}">
+								
+							<div class="chatDiv">
+								<div id="chat_box" class="content chat-box">
+									
+								    <!--<div id="chat_box" class="content chat-box">
+									<div class="user_box clearfix load_more_chat" id="getMore" ng-click="getMore();"><b>Load more</b></div>-->
+									<img id="loader10"  style="display: none;height: 40px;text-align: center;margin: 0px auto;" src='images/spinningwheel.gif'>
+									<input type="hidden" id="dummy_top_div">
+									
+									<span id="load_more_div">
+										<span class="clearfix append_dummy_div" ng-repeat="per in InboxMessageHistoryLoadMore" id="msg{{per.Id}}">
+											<h3 ng-if="(per.SenderName != InboxMessageHistoryLoadMore[$index - 1].SenderName) && (per.SenderUserId != loggedInTeacherId)"
+											ng-class="getColor(per.SenderUserId);">{{per.SenderName}}</h3>
+											<div ng-class="(per.SenderUserId == loggedInTeacherIdLoadMore ? 'chat-convrstaion chat-rel' : 'chat-convrstaion')">
+												<div ng-class="((per.IsRead == false) || (per.SenderUserId == loggedInTeacherId) ?'red_dummy red_dot red_dot2':'')"></div>
+												<div class="conversation arrow_box" ng-bind-html="stripAddr(per.Content)"></div>
+												<span>{{per.SentDate | date:"dd MMM HH:mm"}}</span>
+											</div>
+										</span>
+									</span>
+									
+									<input type="hidden" id="noChatFound" value="{{noChatFound}}" style="position: absolute; top: 200;">
+								
+									<!--<span ng-if="InboxMessageHistory == ''"  >No Active Chats Found…</span>-->
+									<span id="chat_div">
+										<span class="clearfix" style="display: block;" ng-repeat="per in InboxMessageHistory" id="msg{{per.Id}}">
+									<!--		<input type="text" value="{{per.SenderUserId}}"> --- <input type="text" value="{{InboxMessageHistory[0].SenderUserId}}">-->
+											<h3 ng-if="(per.SenderName != InboxMessageHistory[$index - 1].SenderName) && (per.SenderUserId != loggedInTeacherId)"
+												ng-class="getColor(per.SenderUserId);">{{per.SenderName}}</h3>
+											<div ng-class="(per.SenderUserId == loggedInTeacherId ? 'chat-convrstaion chat-rel' : 'chat-convrstaion')" >
+												<div ng-class="((per.IsRead == false) || (per.SenderUserId == loggedInTeacherId) ?'red_dummy red_dot red_dot2':'')"></div>
+												<div class="conversation arrow_box" ng-bind-html="stripAddr(per.Content)"></div>    <!--<span>{{per.IsRead}}</span>-->
+												<span>{{per.SentDate | date:"dd MMM HH:mm"}}</span>
+											</div>
+										</span>
+									</span>
+									<div id="append_dummy_div"></div>
+								</div>
+								
+								
+								<div class="text-box" id="rhs_section3">
+									<div class="text-box-l">
+									   <textarea id="content1" style="overflow: auto !important;" placeholder="Type a message here..."  cols="" rows="" maxlength="500"></textarea>
+										<div class="input-attach">
+											<div class="fileUpload">
+											   <!-- <span><img src="images/attach_pic.png" alt="" class="mCS_img_loaded"></span>-->
+												<input type="file" class="upload">
+											 </div>
+										</div>
+									</div>
+									<input type="reset" id="sendMessageInboxReset" style="display:none">
+									
+								    <div class="text-box-r">
+											<a class="custome_cursor"  id="sendMessageInbox" ng-click="sendMessageInbox()" ng-disabled="isDisabled" ng-model="isDisabled"><i class="fa fa-paper-plane" aria-hidden="true"></i></a>
+									</div>
+								</div>
+							</div>
+	
+							</div>
+						</div>
+					</form>
+                </div>
+				<!----MY INBOX SECTION end---->
+				
+				<!----MY TASK SECTION start---->
+                <div id="sectionD" class="tab-pane fade tabcustomheight">
+					<div id="preloader_right_content5" style="display:none">
+							<div id="status_right_content5"></div>
+					</div>
+					<div class="topsink">
+                    	<div class="task_hd clearfix">
+                        <h3 class="pull-left">Weekly Tasks Due</h3>
+                        <div class="header_right">
+                            <div class="header-search-wrap">
+                               <div class="search_area clearfix" id="tasksearchdiv">
+                                    <input type="text" placeholder="Search a task: Type task title" id="task_search_term" autocomplete="off">
+                                    <button id="tasksrch"><i aria-hidden="true" class="fa fa-search"></i></button>
+                                    <!--<div class="search-cross"><img src="images/search-cross.png" alt="search-cross" /></div>-->
+                                </div>
+                                <div class="search-task task_search" id="search_task">
+									<div class="user_box clearfix" id="taskerrordiv" style="text-align: center;padding-top: 10px;padding-right: 10px;padding-bottom: 10px;padding-left: 10px;display: none">
+									</div>
+									<div id="task_srch_data">
+                                    <ul class="content nav">
+                                        <li class="clearfix taskstdprof taskmove" ng-repeat="tasksearch in tasksearchResList" id="tasksearchdiv{{$index}}">
+                                            <a data-toggle="modal" data-target="#taskDescription" ng-click="taskDescription(tasksearch.Id,tasksearch.ClassName,tasksearch.TaskType,tasksearch.SubjectName,tasksearch.ClassId)" class="post_left custome_cursor" id="tasksearch_div_anchor{{$index}}">
+                                                <div class="sml_text taskSize">
+                                                    <span ng-class="(tasksearch.TaskType == 'Homework' ? 'orange_text' : (tasksearch.TaskType == 'Class Test'? 'magenta_text' :(tasksearch.TaskType == 'Project'? 'purple_text' : 'grey_text')))">{{tasksearch.TaskType}}</span>
+                                                    <span class="gray_text_new">{{tasksearch.ClassName}}</span>
+                                                </div>
+                                                <h2 class="taskSize">{{tasksearch.Title}}</h2>
+                                            </a>
+                                        </li>
+                                    </ul>
+									</div>
+									<input type="hidden" id="task_hover_div" value="-1">
+									<div class="clear_search" id="taskclosediv" style="text-align: center;cursor: pointer;color: white;background-color: gray; padding-top:5px;padding-right: 5px;padding-bottom: 5px;padding-left: 5px;display:none;"><b>Clear Search</b></div>
+                                </div>
+                            </div>
+                            <div class="link_area pull-left">
+                                <a class="custome_cursor" data-toggle="modal" data-target="#create_task" ng-click="createTaskPopup();createTaskFieldsReset();">
+                                    <img alt="" src="images/pic2.png" class="mCS_img_loaded">
+                                    Create Task 
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    	<div class="sky_bar clearfix"><!--| date:'EEEE dd MMM yyyy'   Mon Jul 25 2016-->
+                        <a  class="pull-left custome_cursor" ng-click="previousWeekClick()" id="prev">
+                            <i class="fa fa-angle-left pull-left" aria-hidden="true"></i>
+                            Prev
+                        </a>
+						<div class="wk_picker" id="wk_picker">
+                              <a class="dropdown-toggle custome_cursor" data-toggle="dropdown" id="week_drp_click" ng-click="dtdrp();">{{currentWeekStartDate | date:'MMM dd'}} - {{currentWeekEndDate | date:'MMM dd'}} <i class="fa fa-sort-desc" aria-hidden="true"></i></a>
+							 
+							<!--<input type="hidden" id="displayStartDate" name="displayStartDate" value="{{currentWeekStartDate}}">
+							<input type="hidden" id="displayEndDate" name="displayEndDate" value="{{currentWeekEndDate}}">-->
+							   <!--ng-class="each == currentWeekRange ? 'active' :''" -->
+							 
+							<!--<ul class="dropdown-menu week_drp content" id="week_drp">-->
+							<ul class="week_drp content" id="week_drp">
+								  <div class="user_box clearfix" id="previous_week" style="text-align: center;cursor: pointer;color: white;background-color: gray; padding-top:5px;padding-right: 5px;padding-bottom: 5px;padding-left: 5px;" ng-click="load_more_weeks('prev');"><b class="user_box1">Load more</b></div>
+								  <li ng-repeat="each in myTaskListCalendar"
+									  ng-class="'{{each.StartDate | date:'yyyy-MM-dd'}}' == '{{currentWeekStartDate | date:'yyyy-MM-dd'}}'? 'active' :''"
+									  ng-click="selectWeek(each.StartDate,each.EndDate);">
+									  <a class="custome_cursor" href="javascript:void(0)" >{{each.StartDate  | date:'MMM dd'}} - {{each.EndDate | date:'MMM dd'}}</a>
+								  </li>
+								  <div class="user_box clearfix" id="next_week" style="text-align: center;cursor: pointer;color: white;background-color: gray; padding-top:5px;padding-right: 5px;padding-bottom: 5px;padding-left: 5px;" ng-click="load_more_weeks('next');"><b class="user_box1">Load more</b></div>
+							</ul>
+							
+                        </div>
+						<!--<input type="hidden" value="{{responseArrIndex}}" id="responseArrIndex">
+						<input type="hidden" value="{{weekStartDate}}" id="weekStartDate">
+						<input type="hidden" value="{{weekEndDate}}" id="weekEndDate">-->
+                         <a class="pull-right custome_cursor" ng-click="nextWeekClick()"  id="next">
+                            Next
+                            <i class="fa fa-angle-right pull-right" aria-hidden="true"></i>
+                        </a>
+                    </div>
+					</div>
+					<div id="content-2" class="scrl_inr-he contentDateDIv">
+					<div id="noRecord6" class="noRecordClass">
+						<div><b>{{weeklyTaskMessage}}</b></div>
+						<div>{{weeklyTaskMessage1}} <a class="custome_cursor" data-toggle="modal" data-target="#create_task" ng-click="createTaskPopup();createTaskFieldsReset();">{{weeklyTaskMessage2}}</a> {{weeklyTaskMessage3}}</div>
+					</div>
+                    <div class="post_area" ng-repeat="x in myTaskList" id="highlight{{x.Id}}">
+                        <div class="post_hd dateDiv" id="dateDiv{{x.DueDate | date:'ddMMyyyy'}}" dateDiv="{{x.DueDate}}" ng-if="x.DueDate != myTaskList[$index - 1].DueDate">{{x.DueDate | date:'EEEE dd MMM yyyy'}}</div><!--Monday 25 May 2016-->
+                        <div class="post_row clearfix" id="highlightRow{{x.Id}}">
+                            <div class="post_left">
+                                <a class="custome_cursor" data-toggle="modal" data-target="#taskDescription" ng-click="taskDescription(x.Id,x.ClassName,x.TaskType,x.SubjectName,x.ClassId)">
+                                    <div class="sml_text">
+                                        <span ng-class="(x.TaskType == 'Homework' ? 'orange_text' : (x.TaskType == 'Class Test'? 'magenta_text' :(x.TaskType == 'Project'? 'purple_text' : 'grey_text')))"> {{x.TaskType}} </span>
+                                        <span class="gray_text_new"> {{x.ClassName}}</span>
+                                    </div>
+                                    <h2>{{x.Title}}</h2>
+                                </a>
+                            </div>
+                            <div class="post_right">
+								<!--<span ng-if="(x.DueDate | date:'dd-mm-yyyy') >= (todayDate  | date:'dd-mm-yyyy')">-->
+                                <input name="" value="Edit" class="edit post_btn" type="button" data-toggle="modal" data-target="#edit_task" taskId="{{x.Id}}" id="editMyTask{{x.Id}}" ng-click="taskDescription(x.Id,x.ClassName,x.TaskType,x.SubjectName,x.ClassId);">
+                                <input name="" value="Delete" class="delete post_btn" type="button" data-toggle="modal" data-target="#delete_task" taskId="{{x.Id}}" id="deleteMyTask{{x.Id}}" ng-click="deleteModalOpen(x.Id);">
+								<!--</span>-->
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+			</div>
+			    <!--MY TASK SECTION end-->
+			
+				<!--CREATE TASK SECTION start-->
+				<div id="sectionE" class="tab-pane fade tabcustomheight">
+					<div id="preloader_right_content13" style="display:none">
+							<div id="status_right_content13"></div>
+					</div>
+					 <div class="table_outter">
+						<div class="right_content">
+						   <div class="inr_task new_task">
+								<div class="back_class">
+									<a class="custome_cursor" data-toggle="{{toggle_status_back_btn}}" data-target="#sectionA" id="back_btn" ng-click="cancelClickTab('back_btn',$event);myClassesResponse();">
+										<i class="fa fa-angle-left" aria-hidden="true"></i>
+										Back to My Classes
+									</a>
+									<span id="performance_print_span" style="display:none">
+										
+										<!--<button class="print_btn1" id="performance_print" ng-click="performance_screenshot(performanceList);">Print</button>-->
+									</span>
+									
+								</div>
+								<div class="post_text" id="student_post_text">
+									{{className}} <span>{{subject}}</span>
+								</div>
+								
+								<div class="sky_bar clearfix">
+									<ul class="create_nav">
+										<li id="performance_class" ng-click="classPerformance(classId,className,subject);">
+											<a data-toggle="{{toggle_status_performance}}" data-target="#performance" id="performance_tab" class="custome_cursor" ng-click="cancelClickTab('performance',$event);">
+												<!--<input type="hidden" data-target="#performance" id="performance_tab">-->
+												<i>
+													<span><img src="images/prfrmnc_hvr.png" alt=""></span>
+													<img src="images/prfrmnc.png" alt="">
+												</i>
+												Performance
+											</a>
+										</li>
+										<li id="task_class" ng-click="createTask(classId,className,subject);">
+											<a data-toggle="tab" data-target="#task" id="task_tab" class="custome_cursor">
+												<!--<input type="hidden" data-target="#task" id="task_tab">-->
+												<i>
+													<span><img src="images/task_hvr.png" alt=""></span>
+													<img src="images/task.png" alt="">
+												</i>
+												Create Task
+											 </a>
+										</li>
+										<li id="message_class" ng-click="sendMessage(classId,className,subject);" >
+										<!--<li id="message_class">-->
+											<a data-toggle="{{toggle_status_message}}" data-target="#message" id="message_tab" class="custome_cursor" ng-click="cancelClickTab('message',$event);">
+												<!--<input type="hidden" data-target="#message" id="message_tab">-->
+												<i>
+													<span><img src="images/msg_hvr.png" alt=""></span>
+													<img src="images/msg.png" alt="">
+												</i>
+												Message Parent
+											</a>
+										</li>
+									</ul>
+								</div>
+								<div class="tab-content task-tab-content tabcustomheight" >
+									
+									
+	<!-- -------------------------PERFORMANCE begins------------------------------------------- -->
+
+			<div id="performance" class="task-tab-pane scrl_inr performance-tab-pane tab-pane fade">
+			
+				<div id="noRecord1" class="noRecordClass">
+						<div><b>{{studentListMessagePerformance}}</b></div>
+						<div>{{studentListMessagePerformance1}}</div>
+						<div>{{studentListMessagePerformance2}} </div>
+						<div>{{studentListMessagePerformance3}} <a href="#" ng-click="settings_popup_open();">{{studentListMessagePerformance4}}</a></div>
+				</div>
+				<div class="performance-table showStudentDiv">
+						<div class="performance-table-th">
+							Student
+						</div>
+						<div class="performance-table-th">
+							{{performanceList[0].Performance.Column1.Header}}
+						</div>
+						<div class="performance-table-th">
+							{{performanceList[0].Performance.Column2.Header}}
+						</div>
+						<div class="performance-table-th">
+							{{performanceList[0].Performance.Column3.Header}}
+						</div>
+				</div>
+				<div class="performance-table-wrap content showStudentDiv">
+					<div class="performance-table" id="performance_table">
+						<a data-target="{{dataTarget}}" data-toggle="modal" class="performance-table-tr custome_cursor performance-active performance_class2" ng-repeat="per in performanceList" id="studentPerformance{{per.Id}}" ng-click="studentPerformance(per.Id,per.Name,per.Image,per.Performance.Column1.Value,per.Performance.Column2.Value,per.Performance.Column3.Value,per.Performance.Column1.Trend,per.Performance.Column2.Trend,per.Performance.Column3.Trend,per.Performance.Column1.Unit,per.Performance.Column2.Unit,per.Performance.Column3.Unit,per.IsUnlocked,performanceList[0].Performance.Column1.Header,performanceList[0].Performance.Column2.Header,performanceList[0].Performance.Column3.Header);">
+							<div class="performance-table-td">
+								<div ng-class="per.IsUnlocked == true ? 'outr_border' :''" class="user_pic">
+									<img data-ng-src="data:image/png;base64,{{per.Image}}" alt="" />
+								</div>
+								<span class="performance-name performance-name-custom"><div>{{per.Name}}</div></span>
+							</div>
+							
+							<!-----ATTENDANCE-------------------------------------------->
+					        <!--<div class="performance-table-td" >
+								<span ng-if="(!(per.Performance.Column1.Value == '') && !(per.Performance.Column1.Value == null) && (per.Performance.Column1.Value.length > 0))
+								&& (!(per.Performance.Column1.Unit == '') && !(per.Performance.Column1.Unit == null) && (per.Performance.Column1.Unit.length > 0))"
+									  ng-class="(per.Performance.Column1.Trend == 1 ? 'p-green' : (per.Performance.Column1.Trend == 3 ? 'p-red' : (per.Performance.Column1.Trend == 2? 'orange_text':'')))" >
+									{{per.Performance.Column1.Value}}{{per.Performance.Column1.Unit}} </span>
+								<span ng-if="per.Performance.Column1.Value == '' || per.Performance.Column1.Value == null "
+									  ng-class="(per.Performance.Column1.Trend == 1 ? 'p-green' : (per.Performance.Column1.Trend == 3 ? 'p-red' : (per.Performance.Column1.Trend == 2? 'orange_text':'')))" ></span>
+							</div>-->
+							
+							<div class="performance-table-td" >
+								<span ng-class="(per.Performance.Column1.Trend == 1 ? 'p-green' : (per.Performance.Column1.Trend == 3 ? 'p-red' : (per.Performance.Column1.Trend == 2? 'orange_text':'')))">
+									{{per.Performance.Column1.Value}}{{per.Performance.Column1.Unit}}
+									<i ng-if="per.Performance.Column1.Trend == 1" class="pi-green" style="/*margin-left:-5px !important;*/"></i>
+									<i ng-if="per.Performance.Column1.Trend == 3" class="pi-red" style="/*margin-left:-5px !important;*/"></i>
+									</span>
+								<!--<span ng-if="per.Performance.Column1.Value == '' && per.Performance.Column1.Value == null "
+									  ng-class="(per.Performance.Column1.Trend == 1 ? 'p-green' : (per.Performance.Column1.Trend == 3 ? 'p-red' : (per.Performance.Column1.Trend == 2? 'orange_text':'')))"></span>-->
+							</div>
+							
+							<!-----TARGET-------------------------------------------->
+							<div class="performance-table-td">
+								<span ng-class="(per.Performance.Column2.Trend == 1 ? 'p-green' : (per.Performance.Column2.Trend == 3 ? 'p-red' : (per.Performance.Column2.Trend == 2 ?'orange_text':'')))">{{per.Performance.Column2.Value}}{{per.Performance.Column2.Unit}}</span>
+							</div>
+						    <!--None(0)/Up(1)/Same(2)/Down(3).-->
+						    
+							<!-----GRADE-------------------------------------------->
+							<div class="performance-table-td">
+								<span ng-class="(per.Performance.Column3.Trend == 1 ? 'p-green' : (per.Performance.Column3.Trend == 3 ? 'p-red' : (per.Performance.Column3.Trend == 2 ?'orange_text':'')))">{{per.Performance.Column3.Value}}{{per.Performance.Column3.Unit}}
+								<i ng-if="per.Performance.Column3.Trend == 1" class="pi-green" style="/*margin-left:-5px !important;*/"></i>
+								<i ng-if="per.Performance.Column3.Trend == 3" class="pi-red" style="/*margin-left:-5px !important;*/"></i>
+								</span>
+								<!--<span
+									  ng-if="per.Performance.Column3.Value == '' && per.Performance.Column3.Value == null"
+									  ng-class="(per.Performance.Column3.Trend == 1 ? 'p-green' : (per.Performance.Column3.Trend == 3 ? 'p-red' : (per.Performance.Column3.Trend == 2 ?'orange_text':'')))"></span>-->
+							</div>
+						</a>
+					</div>
+				</div>
+			
+	</div>
+	<!---------------------------PERFORMANCE ends----------------------------------------------->	
+	<!---------------------------CREATE TASKS begin------------------------------------------- -->														
+		<div id="task" class="task-tab-pane tabcustomheight tab-pane fade">
+			<div class="task_inr clearfix">
+				<div class="inner_left same_ht">
+					<form id="studentsForm1">	
+						<div id="noRecord2" class="noRecordClass">
+							<div><b>{{nostudentList}}</b></div>
+							<div>{{nostudentList1}}</div>
+							<div>{{nostudentList2}} </div>
+							<div>{{nostudentList3}} <a href="#" ng-click="settings_popup_open();">{{nostudentlist4}}</a></div>
+							</div>
+						<div class="showStudentDiv">
+							<div class="select_hd clearfix">
+								<div class="student_left">Students ({{countSelectStudentsTask}} Selected) </div>
+								<div class="student_right">
+									<input type="checkbox" id="remember_1" ng-click="allTaskClick();">
+									<label for="remember_1">Select All</label>
+								</div>
+							</div>
+							<div class="student_list content">	
+								<div class="user_box clearfix" ng-repeat="x in studentList" id="studentListInTask{{x.Id}}" >
+									<input  class="checkbox1 studentListInTaskCheckbox" type="checkbox"
+											ng-if="x.IsUnlocked == true"
+											name="studentListInTaskCheckbox[]"
+											id="studentTask{{x.Id}}"
+											studentIdTask="{{x.Id}}"
+											ng-checked="isChecked(x.Id)!=-1"
+											ng-click="eachTaskClick(x.Id);">	
+									<label for="studentTask{{x.Id}}">
+										<div ng-class="x.IsUnlocked == true ? 'outr_border' :''" class="user_pic"><img alt="" data-ng-src="data:image/png;base64,{{x.Image}}"></div>
+										<div class="user_details"> 
+											<h3>{{x.Firstname}} {{x.Lastname}}</h3>
+											<span>{{x.ParentsName}}</span>
+										</div>
+									</label>
+								</div>
+							</div>
+						</div>
+						<input type="reset" id="studentsReset1" style="display:none">
+					</form>
+				</div>
+				
+				<div class="inner_right same_ht">
+				<!--<div id="noRecord8" class="noRecordClass">{{studentListMessage}}</div>-->
+				<form id="taskCreateForm" enctype="multipart/form-data">	
+					<div class="select_outter">
+						<select class="selectpicker tasktype" id="tasktype1" ng-model="itemselected" ng-change="onCategoryChange1(itemselected);">
+							<!--<option disabled selected>Task Type</option>-->
+							<option ng-repeat="(key, value) in taskList" value="{{key}}" data-content="<span class='blacktext'>{{value}}</span>">{{value}}</option>
+						</select>
+						<div id="tasktypeErr" style="color: red;">{{tasktypeErr}}</div>
+					</div>
+					<div class="title_outr">
+						<input type="text" placeholder="Title" id="title1" autocomplete="off" maxlength="50">
+						<!--<div id="tasktitleErr" style="color: red;">{{tasktitleErr}}</div>-->
+					</div>
+					<div class="comnt_outr" id="content-2">
+						<textarea placeholder="Description" id="description1" maxlength="2000"></textarea>
+						<!--<div id="taskdescErr" style="color: red;">{{taskdescErr}}</div>-->
+					</div>
+					<div class="fileUpload clearfix" style="cursor: pointer;" ng-click="attach()">
+						<div class="file_name" style="cursor: pointer;">Attach file</div>
+						<span style="cursor: pointer;">
+							<img id="attach_pic1" src="images/attach_pic.png" alt="">
+							<img id="add_more" class="add_more" src="images/add_more.png" style="display: none;" alt=""></span>
+					</div>
+					
+					<input type="hidden" name="fileNum" id="fileNum" value="0">
+					<input type="hidden" name="file_size1" id="file_size1" value="0">
+					
+					<div class="outter clearfix" id="adddiv1">
+				
+					<!--append files upload divs here-->	
+				
+					</div>
+					
+					<div class="date_select clearfix">
+						<label>Due Date</label>
+						<div class="select_cell">
+							<div class="select_left dates">
+								<select class="selectpicker" id="day1" ng-model="day1" ng-change="checkCalendar(day1);" ignore-default="false">
+									 <option value="" disabled="">dd</option>
+									<option ng-repeat="day in daysInMonth" value="{{day.value}}" ng-selected="{{TodayDay == day.value}}" data-content="<span class='blacktext'>{{day.text}}</span>">{{day.text}}</option>
+									
+								</select>
+							</div>
+							<div class="select_left">
+								<select class="selectpicker" id="mnth1" ng-model="mnth1" ng-change="checkCalendar(mnth1);" ignore-default="true">
+									 <option disabled="disabled"  value="">mm</option> 
+									<option ng-repeat="month in monthsInYear" value="{{month.value}}" ng-selected="{{TodayMnth == month.value}}" data-content="<span class='blacktext'>{{month.text}}</span>">{{month.text}}</option>
+								</select>
+							</div>
+							<div class="select_left">
+								<select class="selectpicker" id="year1" ng-model="year1" ng-change="checkCalendar(year1);" ignore-default="true">
+									 <option disabled="disabled"  value="">yyyy</option> 
+									<option value="{{TodayYr}}" ng-selected="{{TodayYr==NowYear}}" data-content="<span class='blacktext'>{{TodayYr}}</span>">{{TodayYr}}</option>
+									<option value="{{NextYr}}"  ng-selected="{{NextYr==NowYear}}" data-content="<span class='blacktext'>{{NextYr}}</span>">{{NextYr}}</option>
+								</select>
+							</div>
+						</div>
+						<div id="dateErr" style="color: red;">{{dateErr}}</div>
+						</div>
+						<input type="hidden" id="studentIdsForCreateTask">
+						<input type="reset" id="taskCreateReset" style="display:none">
+						<div class="set_task">
+							<!--<span id="loader_settask" class="loader_settask" style="display:none"></span>-->
+							<button id="setTaskBtn" ng-click="setTask();">Set Task</button>
+				
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>				
+	<!---------------------------CREATE TASKS end--------------------------------------------->									
+																
+	<!---------------------------MESSAGE begins------------------------------------------- -->										
+		<div id="message" class="task-tab-pane tabcustomheight tab-pane fade">								
+			<div class="task_inr clearfix">
+				
+					<div class="inner_left same_ht">
+						<div id="noRecord3" class="noRecordClass">
+							<div><b>{{nostudentList}}</b></div>
+							<div>{{nostudentList1}}</div>
+							<div>{{nostudentList2}} </div>
+							<div>{{nostudentList3}} <a href="#" ng-click="settings_popup_open();">{{nostudentList4}}</a></div>
+						</div>
+						<form id="studentsForm2" class="showStudentDiv">
+						<div class="select_hd clearfix">
+							<div class="student_left">Students ({{countSelectStudentsMessage}} Selected) </div>
+							<div class="student_right">
+								<input type="checkbox" id="remember" ng-click="allMessageClick();">
+								<label for="remember">Select All</label>
+							</div>
+						</div>
+						<div class="student_list content">
+							<div class="user_box clearfix" ng-repeat="x in studentListmsg" id="studentListInMessage{{x.Id}}" >
+								<input class="checkbox1 studentListInMessageCheckbox" type="checkbox"
+										ng-if="x.IsUnlocked == true"
+										name="studentListInMessageCheckbox[]"
+										studentIdMessage="{{x.Id}}"
+										id="studentMessage{{x.Id}}"
+										ng-checked="isChecked(x.Id)!=-1"
+										ng-click="eachMessageClick(x.Id);">
+								<label for="studentMessage{{x.Id}}">
+									<div ng-class="x.IsUnlocked == true ? 'outr_border' :''" class="user_pic"><img alt="" data-ng-src="data:image/png;base64,{{x.Image}}"></div>
+									<div class="user_details">
+										<h3>{{x.Firstname}} {{x.Lastname}}</h3>
+										<span>{{x.ParentsName}}</span>
+									</div>
+								</label>
+							</div>
+						</div>
+					<input type="reset" id="studentsReset2" style="display:none">
+				</form>
+				</div>
+				
+				<div class="inner_right">
+				<!--<div id="noRecord9" class="noRecordClass">{{studentListMessage}}</div>-->
+				<form id="messageForm">
+					<div class="textarea-wrapper">
+						<textarea  class="type_msg" placeholder="Type Message here" id="message1" spellcheck="true" maxlength="1000"></textarea>
+						<div class="textarea-clone"></div>
+					</div>
+					<!--<div class="fileUpload clearfix pick_photo">
+						<div class="file_name">Attach photo</div>
+						<span><img src="images/attach_pic.png" alt=""></span>
+						<input type="file" class="upload" onChange="readURL(this);" />
+					</div>-->
+					<br>
+					<label style="font-weight:500">Template Messages</label>
+					<div class="up_photo">
+						<div class="pre_msg content" id="pre_msg">
+							<ul>
+								<li ng-repeat="(key, value) in predefinedMessages" ng-click="predefinedMessageDisplay(value);" style="cursor: pointer">{{value}} </li>
+								
+							</ul>
+						</div>
+						<div>{{errorMsg}}</div>
+					</div>
+					
+					<input type="hidden" id="studentIdsForMessage">
+					<input type="reset" id="messageReset" style="display:none">
+					<div class="set_task">
+						<button id="sendMessageBtn" ng-click="sendMessageBtnClick();">Send Message</button>
+					</div>
+				</form>
+				</div>
+			</div>
+		</div>
+	<!---------------------------MESSAGE ends--------------------------------------------->
+								</div>
+						   </div>
+						</div>
+					</div>
+				</div>
+				<!--CREATE TASK SECTION end-->
+			</div>
+        </div>
+    </div>
+</div>
+<!--main content-->
+
+<!--footer start-->
+<div class="footer">Copyright &copy; 2017 InvolvEdTech. All Rights Reserved.</div>
+<!--footer end-->
+
+<!----------HTML OF ALL MODALS---------------------------------------------------------------->
+
+<!-- attach photo modal -->
+<!--<div class="modal fade attach_photo" id="attachPhoto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><img src="images/popup-cross.png" alt="popup-cross" /></span></button>
+                <h3>Preview</h3>
+            </div>
+            <div class="modal-body clearfix">
+                <div class="choose-another-img">
+                    <label for="chooseAnother">Choose Another image</label>
+                    <input type="file" id="chooseAnother" />
+                </div>
+                <div class="attach-photo-main">
+                    <img src="images/attach-crop-photo.jpg" alt="attach-crop-photo" />
+                </div>
+                <a href="#" class="crop-img">Crop Image</a>
+                <div class="clearfix"></div>
+                <div class="attach-message clearfix">
+                    <input type="text" placeholder="Type Message Here" class="form-controls" />
+                    <input type="button" value="Send" class="attach-sent" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+--><!-- attach photo modal -->
+
+<!-- crop photo modal FROM CREATE_TASK.HTML PAGE -->
+<div class="modal fade attach_photo" id="cropPhoto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><img src="images/popup-cross.png" alt="popup-cross" /></span></button>
+                <h3>Preview</h3>
+            </div>
+            <div class="modal-body clearfix">
+                <div class="choose-another-img">
+                    <label for="chooseAnother">Choose Another image</label>
+                    <input type="file" id="chooseAnother" />
+                </div>
+                <div class="attach-photo-main crop-photo-main">
+                    <img src="images/crop-img.jpg" alt="crop-img" />
+                </div>
+                <div class="clearfix"></div>
+                <div class="attach-message crop-attach-message clearfix">
+                    <input type="button" value="Send" class="attach-sent" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- crop photo modal FROM CREATE_TASK.HTML PAGE -->
+
+<!-- crop photo modal FROM TEACHER_LOGIN.HTML PAGE -->
+<div class="modal fade attach_photo task-description" id="taskDescription" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+			<div id="preloader_right_content11" style="display:none">
+					<div id="status_right_content11"></div>
+			</div>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="taskDescriptionClose" ng-click="deselect()"><span aria-hidden="true"><img src="images/popup-cross.png" alt="popup-cross" /></span></button>
+                <h3>Task Description</h3>
+            </div>
+            <div class="modal-body clearfix">
+                <div class="task_inr clearfix">
+					<div id="noRecord13" class="noRecordClass">
+							<div><b>{{nodesc1}}</b></div>
+							<div>{{nodesc2}}</div>
+							<div>{{nodesc3}}</div>
+							<div>{{nodesc4}}<a href="#" ng-click="settings_popup_open();">{{nodesc5}}</a></div>
+					</div>
+                    <div class="inner_left showStudentDiv">
+                    	<div class="select_area">
+                        	<div ng-class="(taskType == 'Homework' ? 'orange_text' : (taskType == 'Class Test'? 'magenta_text' :(taskType == 'Project'? 'purple_text' : 'grey_text')))">{{taskType}}</div>
+                            <div class="select_sub_text">
+                            	{{className}}  <span>({{SubjectName}})</span>
+                            </div>
+                        </div>
+						
+						<form>
+							<div class="select_hd clearfix">
+								<div class="student_left">Students ({{selectedStudentCount}} Selected) </div>
+							</div>
+							<div class="student_list content" id="content-1">
+								<div class="user_box clearfix taskDesUser" ng-repeat="x in studentList" ng-class="(isExist(x.Id)!=-1) ? 'active' :''">
+									<input  ng-if="x.IsUnlocked == true"
+									        class="checkbox1 studentListInTaskDesccheckbox" type="checkbox"
+											id="studentTaskDescPopup{{x.Id}}"
+											name='studentIdTaskDescPopupCheckbox[]'		
+											studentIdTaskDescPopup="{{x.Id}}"
+											ng-checked="(isExist(x.Id)!=-1)"
+											disabled readonly>
+									<label for="studentTaskDescPopup{{x.Id}}">
+										<div ng-class="x.IsUnlocked == true ? 'outr_border' :''" class="user_pic"><img alt="" data-ng-src="data:image/png;base64,{{x.Image}}"></div>
+										
+										<!---->
+										<!--<div ng-class="x.IsUnlocked == true ? 'outr_border' :''" class="user_pic"><img alt="" data-ng-src="data:image/png;base64,{{x.Image}}"></div>-->
+										
+										<div class="user_details">
+											<h3>{{x.Firstname}} {{x.Lastname}}</h3>
+											<span>{{x.ParentsName}}</span>
+										</div>
+									</label>
+								</div>
+							</div>
+							<input type="reset" id="studentsReset3" style="display:none">
+						</form>
+                    </div>
+                    <div class="inner_right">
+                        <h4 class="presentaion">{{Title}}</h4>
+                        <div class="date_fix_area clearfix">
+                        	<div class="set_date pull-left">
+                                <input type="text" value="{{CreatedDate |date:'dd MMM yyyy'}}" disabled>
+                                <div class="date_label">
+                                	<i class="fa fa-calendar" aria-hidden="true"></i>
+                                	Set Date
+                                </div>
+                            </div>
+							
+                            <div class="set_date pull-right">
+                                <input type="text" value="{{DueDate | date:'dd MMM yyyy'}}" disabled>
+                                <div class="date_label" ng-if="(taskType == 'Homework')||(taskType == 'Project')||(taskType == 'Other')">
+                                	<i class="fa fa-calendar" aria-hidden="true"></i>									
+                                	Due Date
+                                </div>
+								<div class="date_label" ng-if="(taskType == 'Class Test')">
+                                	<i class="fa fa-calendar" aria-hidden="true"></i>									
+                                	Test Date
+                                </div>
+                            </div>
+							
+                        </div>
+                        <div class="comnt_outr" id="content-2">
+                            <textarea id="description4" placeholder="Description" maxlength="2000" disabled>{{Description}}</textarea>
+                        </div>
+                        <div class="fileUpload  clearfix">
+                            <div class="file_name">Attachment</div>
+                            <span><img src="images/attach_pic.png" alt=""></span>
+                            <input type="file" disabled readonly class="upload" style="cursor:default !important;" />
+                         </div>
+                        <div class="title_outr clearfix">
+                           <!-- <div class="attach_text">{{AttachmentCount}} Attachments</div>-->
+                            <div class="pdf_pic clearfix"  ng-repeat="x in Attachments">
+                                <div class="pdf_left" >
+                                	<a class='vcard-hyperlink' ng-click="downloadAttachment(x.Id,x.Name);">
+									<!-- <a class='vcard-hyperlink' ng-click="downloadAttachment(x.Id,x.Name);" href="javascript:void(0)"> -->
+                                	<!--<a class='vcard-hyperlink' ng-click="downloadAttachment(x.Id);"
+									   href="http://server.involvedtech.co.uk:80/api/files/insecuretaskattachment={{x.Id}}">-->
+									
+                                        <img src="images/push-pin.png" alt="">
+                                        <span>{{x.Name | limitTo : 10}}...</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+						</br>
+						<span ng-if="AttachmentCount == 0" class="AttachmentCount">No attachments added.</span>
+                        <div class="set_task">
+                            <input class="edit post_btn" type="button" value="Edit" ng-click="editModalOpen();">
+							<input class="delete post_btn" type="button" value="Delete" ng-click="deleteModalOpenforDesc();">
+                        </div>
+                    </div>
+               </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- crop photo modal FROM TEACHER_LOGIN.HTML PAGE -->
+
+
+
+
+<!----------------------------------CREATE TASK MODAL begins---------------------------------------------------------------->
+<!--create task modal-->
+<div class="modal fade attach_photo" id="create_task" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+			<div id="preloader_right_content3" style="display:none">
+					<div id="status_right_content3"></div>
+			</div>
+            <div class="modal-header">
+				<button type="button" class="close" id="createTaskPopupClose" ng-click="cancelClickPop();" >
+					<span aria-hidden="true"><img src="images/popup-cross.png" alt="popup-cross" /></span>
+				</button>
+				<input type="hidden" id="createTaskPopUpClose" class="close" data-dismiss="modal" aria-label="Close" >
+                <h3>Create New Task</h3>
+            </div>
+            <div class="modal-body clearfix">
+                <div class="task_inr clearfix">
+			<div id="preloader_create_task_modal" style="display:none;width: 45%;">
+				<div id="status_create_task_modal"></div>
+			</div>
+                    <div class="inner_left same_ht" style="border-right: 1px solid #dedede;">
+                    	<div class="select_area">
+                        	<label>Class:</label>
+                            <div class="select_outter_new" ng-click="changeStyle()">
+								<select id="selectClassDdp" name="selValue" class="selectpicker" ng-model="classIdModel" ng-change="studentListResponseDropdown(classIdModel)" default-option="Select a class">
+									<option value="0" selected="selected">Select a class</option>
+									<!---<option value="0" disabled selected style="display: none;">Select a class</option>-->
+									<!--<option value="" disabled ng-hide="classIdModel" style="display: none;">Select a class</option>-->
+									<!---***  code to already select a class on page load  ***---->
+									<!--<option ng-repeat="x in myClasses" value="{{x.Id}}" ng-selected="{{x.Id}} == {{myClasses[0].Id}}"data-content="<span class='blacktext'>{{x.Name}} ({{x.SubjectName}})</span>">{{x.Name}} ({{x.SubjectName}})</option>-->
+									<option ng-repeat="x in myClasses"
+											value="{{x.Id}}"
+											data-content="<span class='blacktext'>{{x.Name}} ({{x.SubjectName}})</span>">{{x.Name}} ({{x.SubjectName}})</option>
+								</select>
+                        	</div>
+                        </div>
+						<div id="noRecord7" class="noRecordClass" style="display:none">
+							<div><b>{{nostudentList}}</b></div>
+							<div>{{nostudentList1}}</div>
+							<div>{{nostudentList2}} </div>
+							<div>{{nostudentList3}} <a href="#" ng-click="settings_popup_open();">{{nostudentlist4}}</a></div>
+						</div>
+						<div id="createTaskMessage" style="display:none">
+							<p><span class="task_instruction" >&nbsp;<b>1</b>&nbsp;</span>&nbsp;<span class="t_inst">Select a Class.</span></p>
+							<p><span class="task_instruction" >&nbsp;<b>2</b>&nbsp;</span>&nbsp;<span class="t_inst">Enter Task Details.</span></p>
+						</div>
+						
+						<form class="showStudentDivPopup poplist" style="display:none">
+							
+							<div class="select_hd clearfix showStudentDivPopup" style="display:none">
+								<div class="student_left">Students ({{countSelectStudentsTaskPopup}} Selected) </div>
+								<div class="student_right">
+									<input type="checkbox" id="remember4" ng-click="allTaskPopupClick();" >
+									<label for="remember4">Select All</label>
+								</div>
+							</div>
+							<div class="student_list content showStudentDivPopup" id="content-1">
+								<div class="user_box clearfix studentListInTaskPopup" ng-repeat="x in studentList" id="studentListInTaskPopup{{x.Id}}" ng-class="{active: isExist(x.Id)!=-1}">
+									<input  class="checkbox2 studentIdTaskPopupCheckbox" type="checkbox"
+                                            ng-if="x.IsUnlocked == true"
+											id="studentTaskPopup{{x.Id}}"
+											name='studentIdTaskPopupCheckbox[]'
+											ng-checked="isExist(x.Id)!=-1"
+											studentIdTaskPopup="{{x.Id}}"
+											ng-click="eachTaskPopupClick(x.Id);">
+									<label for="studentTaskPopup{{x.Id}}">
+										<div ng-class="x.IsUnlocked == true ? 'outr_border' :''" class="user_pic"><img alt="" data-ng-src="data:image/png;base64,{{x.Image}}"></div>
+										<div class="user_details">
+											<h3>{{x.Firstname}} {{x.Lastname}}</h3>
+											<span>{{x.ParentsName}}</span>
+										</div>
+									</label>
+								</div>
+							</div>
+							<input type="reset" id="studentsReset4" style="display:none">
+						</form>
+                    </div>
+					
+                    <div class="inner_right pop_create same_ht" style="border-right: none;">
+					<!--<div id="noRecord5" class="noRecordClass">{{studentListMessagePopup}}</div>-->
+					<form class="">	
+                        <div class="select_outter">
+                            <select class="selectpicker tasktype" id="tasktype2" ng-model="itemSelected" ng-change="onCategoryChange(itemSelected);">
+                                <!--<option disabled selected>Task Type</option>-->
+								<option ng-repeat="(key, value) in taskList" value="{{key}}" data-content="<span class='blacktext'>{{value}}</span>">{{value}}</option>
+                            </select>
+							<div id="tasktypeErr2" style="color: red;">{{tasktypeErr2}}</div>
+                        </div>
+                        <div class="title_outr">
+                            <input type="text" placeholder="Title" id="title2" autocomplete="off" maxlength="50">
+							<!--<div id="tasktitleErr2" style="color: red;">{{tasktitleErr2}}</div>-->
+                        </div>
+                        <div class="comnt_outr" id="content-2">
+                            <textarea placeholder="Description" id="description2" maxlength="2000"></textarea>
+							<!--<div id="taskdescErr2" style="color: red;">{{taskdescErr2}}</div>-->
+                        </div>
+                        <div class="fileUpload clearfix" style="cursor: pointer;" ng-click="attach2()">
+                            <div class="file_name" style="cursor: pointer;">Attach file</div>
+                            <span style="cursor: pointer;">
+								<img id="attach_pic2" src="images/attach_pic.png" alt="">
+								<img id="add_more2" class="add_more" src="images/add_more.png" style="display: none;" alt="">
+							</span>
+						</div>
+						
+						<input type="hidden" name="fileNum2" id="fileNum2" value="0">
+						<input type="hidden" name="file_size2" id="file_size2" value="0">
+						<div class="title_outr clearfix" id="adddiv2">
+						
+						<!--append file upload div here-->
+						
+						</div>
+                       <!-- <div class="title_outr">
+                            <div class="pdf_pic clearfix">
+                                <div class="pdf_left w3attach" ng-repeat="file in files" id="attachmentCreateTaskPopup{{$index}}">
+                                    <img src="images/push-pin.png" alt="">
+                                    <span>{{file.name  | limitTo : 10}}...</span>
+									<img ng-click="removeAttachmentCreateTaskPopup($index);" class="remove_btn_class"  style="float: right;"src="images/remove_btn.png" alt="">
+                                </div>
+                            </div>
+                         </div>-->
+                        <div class="date_select clearfix">
+                            <label>Due Date</label>
+							<div class="select_cell">
+                                <div class="select_left">
+                                    <select class="selectpicker" id="day2" ng-model="day2" ng-change="checkCalendarPop();" ignore-default="true">
+                                        <option disabled  value="">dd</option>
+                                        <option ng-repeat="day in daysInMonth" value="{{day.value}}" ng-selected="{{TodayDay == day.value}}"  data-content="<span class='blacktext'>{{day.text}}</span>">{{day.text}}</option>
+                                    </select>
+                                </div>
+                                <div class="select_left">
+                                    <select class="selectpicker" id="mnth2" ng-model="mnth2" ng-change="checkCalendarPop();" ignore-default="true">
+                                        <option disabled  value="">mm</option>>
+                                        <option ng-repeat="month in monthsInYear" value="{{month.value}}" ng-selected="{{TodayMnth == month.value}}" data-content="<span class='blacktext'>{{month.text}}</span>">{{month.text}}</option>
+                                    </select>
+                                </div>
+                                <div class="select_left">
+                                    <select class="selectpicker" id="year2" ng-model="year2" ng-change="checkCalendarPop();" ignore-default="true">
+                                        <option disabled  value="">yyyy</option>
+                                        <option value="{{TodayYr}}" ng-selected="{{TodayYr==NowYear}}" data-content="<span class='blacktext'>{{TodayYr}}</span>">{{TodayYr}}</option>
+                                        <option value="{{NextYr}}" ng-selected="{{NextYr==NowYear}}" data-content="<span class='blacktext'>{{NextYr}}</span>">{{NextYr}}</option>
+                                    </select>
+                                </div>
+							</div>
+							</div>
+							<div id="dateErr2" style="color: red;">{{dateErr2}}</div>
+                
+						<input type="hidden" id="studentIdsForTaskPopUp">
+						<input type="reset" id="taskCreatePopUpReset" style="display:none">
+						<div class="set_task">
+							<!--<span id="loader_settask2" class="loader_settask" style="display:none"></span>-->
+                            <button id="setTaskPopBtn" ng-click="setTaskPop();">Set Task</button>
+                        </div>
+						</form>
+                        
+                    </div>
+               </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--create task modal end-->
+<!----------------------------------CREATE TASK MODAL ends---------------------------------------------------------------->
+
+<!----------------------------------EDIT TASK MODAL --edit pop up------------------------------------------------------- -->
+<div class="modal fade attach_photo" id="edit_task" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+			<div id="preloader_right_content2" style="display:none">
+					<div id="status_right_content2"></div>
+			</div>
+			<div id="preloader_right_content10" style="display:none">
+					<div id="status_right_content10"></div>
+			</div>
+            <div class="modal-header">
+                <button type="button" class="close" aria-label="Close"  id="editPopupClose" ng-click="editclose();" ><span aria-hidden="true"><img src="images/popup-cross.png" alt="popup-cross" /></span></button>
+                <h3>Edit Task</h3>
+            </div>
+            <div class="modal-body clearfix">
+               <div class="task_inr clearfix">
+				<div id="noRecord14" class="noRecordClass">
+							<div><b>{{nodesc1}}</b></div>
+							<div>{{nodesc2}}</div>
+							<div>{{nodesc3}} </div>
+							<div>{{nodesc4}} <a href="#" ng-click="settings_popup_open();">{{nodesc5}}</a></div>
+						</div>
+                    <div class="inner_left showStudentDiv">
+                    	<div class="select_area">
+                        	<div ng-class="(taskType == 'Homework' ? 'orange_text' : (taskType == 'Class Test'? 'magenta_text' :(taskType == 'Project'? 'purple_text' : 'grey_text')))">{{taskType}}</div>
+                            <div class="select_sub_text">
+                            	{{className}}  <span>({{SubjectName}})</span>
+                            </div>
+                        </div>
+                        <div class="select_hd clearfix">
+                            <div class="student_left">Students ({{selectedStudentCount}} Selected) </div>
+                            <div class="student_right" >
+                                <input type="checkbox" id="remember3" >
+                                <label for="remember3">Select All</label>
+                            </div>
+                        </div>
+                        <div class="student_list content" id="content-1">
+                            <div ng-repeat="x in studentList" id="studentListInEditPopup{{x.Id}}" class="user_box clearfix editcall"  ng-class="(isExist(x.Id)!=-1) ? 'active' :''">
+                                <input  class="checkbox1 studentListInEditPopupCheckbox" type="checkbox"
+                                        ng-if="x.IsUnlocked == true"
+										id="studentEditPopup{{x.Id}}"
+										name='studentEditPopupCheckbox[]'		
+										studentEditPopup="{{x.Id}}"
+										ng-checked="isExist(x.Id)!=-1"
+										ng-click="eachEditTaskClick(x.Id);">
+                                <label for="studentEditPopup{{x.Id}}">
+                                    <div ng-class="x.IsUnlocked == true ? 'outr_border' :''" class="user_pic"><img alt="" data-ng-src="data:image/png;base64,{{x.Image}}"></div>
+                                    <div class="user_details">
+                                        <h3>{{x.Firstname}} {{x.Lastname}}</h3>
+                                        <span>{{x.ParentsName}}</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+					<form>
+                    <div class="inner_right">
+                        <!--<div class="select_outter">
+                            <select class="selectpicker">
+                                <option disabled selected style="display: none;">Task Type</option>
+								<option ng-repeat="(key, value) in taskList" value="{{key}}">{{value}}</option>
+                            </select>
+                        </div>-->
+						
+                        <div class="title_outr">
+                            <input type="text" placeholder="Title" id="title3" value="{{Title}}"  style="font-size:20px;" autocomplete="off" maxlength="50">
+							<!--<div id="tasktitleErr3" style="color: red;">{{tasktitleErr3}}</div>-->
+                        </div>
+                        <div class="comnt_outr" id="content-2">
+                            <textarea placeholder="Description" id="description3" maxlength="2000">{{Description}}</textarea>
+							<!--<div id="taskdescErr3" style="color: red;">{{taskdescErr3}}</div>-->
+                        </div>
+						
+                        <div class="fileUpload clearfix" style="cursor: pointer;" ng-click="attach3()">
+                            <div class="file_name" style="cursor: pointer;">Attach file</div>
+							<span style="cursor: pointer;">
+							<img id="attach_pic3" src="images/attach_pic.png" alt="">
+							<img id="add_more3" class="add_more" src="images/add_more.png" style="display: none;" alt=""></span>
+                        </div>
+				
+					
+					
+					
+                        <div class="title_outr clearfix">
+							<!-----FOR OLD UPLOADED FILES----- -->
+                            <div class="pdf_pic clearfix attachmentEdit w3attachedit"  name="attachmentEdit[]" id="attachmentDivOld{{x.Id}}" attachmentId="{{x.Id}}" attachmentName="{{x.Name}}" noOfAttachments="{{Attachments.length}}" ng-repeat="x in Attachments">
+                                <div class="pdf_left">
+                                	<a class='vcard-hyperlink' ng-click="downloadAttachment(x.Id,x.Name);">
+									<!-- <a class='vcard-hyperlink' ng-click="downloadAttachment(x.Id,x.Name);" href="javascript:void(0)"> -->
+									<!--<a class='vcard-hyperlink' ng-click="downloadAttachment(x.Id);" href="http://server.involvedtech.co.uk:80/api/files/insecuretaskattachment={{x.Id}}">-->
+                                        <img src="images/push-pin.png" alt="">					
+                                        <span>{{x.Name | limitTo : 10}}...</span>
+                                    </a>
+										<span ng-click="removeAttachmentOld(x.Id);" class="remove_btn_class" attachmentid="{{x.Id}}" alt=""><i class="fa fa-times" aria-hidden="true"></i></span>
+								</div>
+								<input type="hidden" id="individual_file_size_old{{x.Id}}" value="{{x.Size}}" class="indiFsize_old">
+							</div>
+							<!---------------------------------->
+						
+							<!-----FOR NEW UPLOADED FILES------->
+							<div class="clearfix" id="adddiv3">
+								<!--div to be appended-->					
+							</div>
+							<!---------------------------------->
+                        </div>
+							<input type="hidden" name="totFileSizeOld" id="totFileSizeOld" value="{{totFileSize}}">
+							<input type="hidden" name="file_size3" id="file_size3" value="0" style="display:none">
+							<input type="hidden" name="fileNum3" id="fileNum3" value="0" style="display:none">
+							<input type="hidden" id="noOfOldFiles" class="AttachmentCount" value="{{AttachmentCount}}" style="display:none">
+						<!--</br>
+						<span ng-if="AttachmentCount == 0">No attachments added.</span>-->
+						
+                        <div class="date_select clearfix day3">
+                            <label>Due Date</label>
+							<div class="select_cell" id="editTaskCalendar">
+								<div class="select_left">
+									<select class="selectpicker dropup" id="day3" ng-model="day3" ng-change="checkCalendarEditPop(day3);">
+										<option disabled>dd</option>
+										<option value="01" ng-selected="{{DueDateDay == 01}}"  data-content="<span class='blacktext'>1</span>">1</option>
+										<option value="02" ng-selected="{{DueDateDay == 02}}"  data-content="<span class='blacktext'>2</span>">2</option>
+										<option value="03" ng-selected="{{DueDateDay == 03}}"  data-content="<span class='blacktext'>3</span>">3</option>
+										<option value="04" ng-selected="{{DueDateDay == 04}}"  data-content="<span class='blacktext'>4</span>">4</option>
+										<option value="05" ng-selected="{{DueDateDay == 05}}"  data-content="<span class='blacktext'>5</span>">5</option>
+										<option value="06" ng-selected="{{DueDateDay == 06}}"  data-content="<span class='blacktext'>6</span>">6</option>
+										<option value="07" ng-selected="{{DueDateDay == 07}}"  data-content="<span class='blacktext'>7</span>">7</option>
+										<option value="08" ng-selected="{{DueDateDay == 08}}"  data-content="<span class='blacktext'>8</span>">8</option>
+										<option value="09" ng-selected="{{DueDateDay == 09}}"  data-content="<span class='blacktext'>9</span>">9</option>
+										<option value="10" ng-selected="{{DueDateDay == 10}}"  data-content="<span class='blacktext'>10</span>">10</option>
+										<option value="11" ng-selected="{{DueDateDay == 11}}"  data-content="<span class='blacktext'>11</span>">11</option>
+										<option value="12" ng-selected="{{DueDateDay == 12}}"  data-content="<span class='blacktext'>12</span>">12</option>
+										<option value="13" ng-selected="{{DueDateDay == 13}}"  data-content="<span class='blacktext'>13</span>">13</option>
+										<option value="14" ng-selected="{{DueDateDay == 14}}"  data-content="<span class='blacktext'>14</span>">14</option>
+										<option value="15" ng-selected="{{DueDateDay == 15}}"  data-content="<span class='blacktext'>15</span>">15</option>
+										<option value="16" ng-selected="{{DueDateDay == 16}}"  data-content="<span class='blacktext'>16</span>">16</option>
+										<option value="17" ng-selected="{{DueDateDay == 17}}"  data-content="<span class='blacktext'>17</span>">17</option>
+										<option value="18" ng-selected="{{DueDateDay == 18}}"  data-content="<span class='blacktext'>18</span>">18</option>
+										<option value="19" ng-selected="{{DueDateDay == 19}}"  data-content="<span class='blacktext'>19</span>">19</option>
+										<option value="20" ng-selected="{{DueDateDay == 20}}"  data-content="<span class='blacktext'>20</span>">20</option>
+										<option value="21" ng-selected="{{DueDateDay == 21}}"  data-content="<span class='blacktext'>21</span>">21</option>
+										<option value="22" ng-selected="{{DueDateDay == 22}}"  data-content="<span class='blacktext'>22</span>">22</option>
+										<option value="23" ng-selected="{{DueDateDay == 23}}"  data-content="<span class='blacktext'>23</span>">23</option>
+										<option value="24" ng-selected="{{DueDateDay == 24}}"  data-content="<span class='blacktext'>24</span>">24</option>
+										<option value="25" ng-selected="{{DueDateDay == 25}}"  data-content="<span class='blacktext'>25</span>">25</option>
+										<option value="26" ng-selected="{{DueDateDay == 26}}"  data-content="<span class='blacktext'>26</span>">26</option>
+										<option value="27" ng-selected="{{DueDateDay == 27}}"  data-content="<span class='blacktext'>27</span>">27</option>
+										<option value="28" ng-selected="{{DueDateDay == 28}}"  data-content="<span class='blacktext'>28</span>">28</option>
+										<option value="29" ng-selected="{{DueDateDay == 29}}"  data-content="<span class='blacktext'>29</span>">29</option>
+										<option value="30" ng-selected="{{DueDateDay == 30}}"  data-content="<span class='blacktext'>30</span>">30</option>
+										<option value="31" ng-selected="{{DueDateDay == 31}}"  data-content="<span class='blacktext'>31</span>">31</option>
+									</select>
+								</div>
+								<div class="select_left">
+									<select class="selectpicker dropup" id="mnth3" ng-model="mnth3" ng-change="checkCalendarEditPop(mnth3);">
+										<option disabled>mm</option>
+										<option value="01" ng-selected="{{DueDateMnth == 01}}"  data-content="<span class='blacktext'>Jan</span>">Jan</option>
+										<option value="02" ng-selected="{{DueDateMnth == 02}}"  data-content="<span class='blacktext'>Feb</span>">Feb</option>
+										<option value="03" ng-selected="{{DueDateMnth == 03}}"  data-content="<span class='blacktext'>Mar</span>">Mar</option>
+										<option value="04" ng-selected="{{DueDateMnth == 04}}"  data-content="<span class='blacktext'>Apr</span>">Apr</option>
+										<option value="05" ng-selected="{{DueDateMnth == 05}}"  data-content="<span class='blacktext'>May</span>">May</option>
+										<option value="06" ng-selected="{{DueDateMnth == 06}}"  data-content="<span class='blacktext'>Jun</span>">Jun</option>
+										<option value="07" ng-selected="{{DueDateMnth == 07}}"  data-content="<span class='blacktext'>Jul</span>">Jul</option>
+										<option value="08" ng-selected="{{DueDateMnth == 08}}"  data-content="<span class='blacktext'>Aug</span>">Aug</option>
+										<option value="09" ng-selected="{{DueDateMnth == 09}}"  data-content="<span class='blacktext'>Sep</span>">Sep</option>
+										<option value="10" ng-selected="{{DueDateMnth == 10}}"  data-content="<span class='blacktext'>Oct</span>">Oct</option>
+										<option value="11" ng-selected="{{DueDateMnth == 11}}"  data-content="<span class='blacktext'>Nov</span>">Nov</option>
+										<option value="12" ng-selected="{{DueDateMnth == 12}}"  data-content="<span class='blacktext'>Dec</span>">Dec</option>
+									</select>
+								</div>
+								<div class="select_left">
+									<select class="selectpicker dropup" id="year3" ng-model="year3" ng-change="checkCalendarEditPop(year3);">
+										<option disabled>yyyy</option>
+										<option value="{{TodayYr}}" ng-selected="{{DueDateYear == TodayYr}}" data-content="<span class='blacktext'>{{TodayYr}}</span>">{{TodayYr}}</option>
+										<option value="{{NextYr}}" ng-selected="{{DueDateYear == NextYr}}" data-content="<span class='blacktext'>{{NextYr}}</span>">{{NextYr}}</option>
+									</select>
+								</div>
+							</div>
+							<div id="dateErr3" style="color: red;">{{dateErr3}}</div>
+                         </div>
+						<input type="reset" id='studentsReset6' style="display:none">
+						<input type="hidden" id="studentIdsAssigned" value="">
+						<input type="hidden" id="studentIdsForEditPopup" value="">
+                        <div class="set_task">
+							<!--<span id="loader_settask3" class="loader_settask" style="display:none"></span>-->
+                            <button id="editTaskPopBtn" ng-click="updateTask();">Update</button>
+                            <button class="red" ng-click="cancelClick()" >Cancel</button>
+                        </div>
+                    </div>
+               </form>
+			   </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--edit pop end-->
+
+<!--delete pop up-->
+<div class="modal fade attach_photo" id="delete_task" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body clearfix">
+               <span>Delete Task?</span>
+               <div class="delete_btn">
+					<a class="custome_cursor yes_bg" data-dismiss="modal" aria-label="Close" ng-click="taskDelete()">Yes</a>
+               		<a class="custome_cursor" data-dismiss="modal" aria-label="Close" ng-click="noDeleteBtn();">No</a>
+                    
+               </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--delete pop end-->
+
+<!--logout pop up-->
+<div class="modal fade attach_photo" id="logout_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body clearfix">
+               <span>Confirm logout?</span>
+               <div class="delete_btn">
+				<a class="custome_cursor yes_bg" data-dismiss="modal" aria-label="Close" ng-click="logout()">Yes</a>
+               		<a class="custome_cursor" data-dismiss="modal" aria-label="Close">No</a>
+                    
+               </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--logout pop end-->
+
+<!--setting modal area-->
+  <div class="modal fade attach_photo task-description" id="setting" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+			
+			<div id="preloader_right_content9" style="display:none">
+					<div id="status_right_content9"></div>
+			</div>
+			
+			
+            <div class="modal-header">
+                <button id="settings_close" type="button" class="close" data-dismiss="modal" aria-label="Close" ><span aria-hidden="true"><img src="images/popup-cross.png" alt="popup-cross" /></span></button>
+                <h3>Settings</h3>
+            </div>
+            <div class="modal-body clearfix">
+                <div class="task_inr setting_d clearfix">
+                    <div class="inner_left">
+                      <div class="ed_outr">
+                        <img src="images/ed_pic.png" alt="">
+                        <span>Version 1.0</span>
+                        <span>© 2017 InvolvEdTech. All Rights Reserved.</span>
+                        <span><a href="http://www.involvedtech.co.uk" target="_blank">www.involvedtech.co.uk</a></span>
+                      </div> 
+                      <div class="email_rowd">
+                        <ul>
+                            <li>
+                                <a class="custome_cursor">
+                                    Email Notifications
+                                    <span class="radio_left" ng-click="on_off_btn(0);">
+                                       <input type="radio" id="s-option" name="selector" class="on_off_btn_class" >
+                                       <label for="s-option">Off</label>
+                                       <div class="check"><div class="inside"></div></div>
+                                    </span>
+                                    <span class="radio_left" ng-click="on_off_btn(1);">
+                                        <input type="radio" id="f-option" name="selector" class="on_off_btn_class">
+                                        <label for="f-option">On</label>
+                                        <div class="check"></div>
+                                    </span>
+                                </a>
+                            </li> 
+                            <li><a href="http://www.involvedtech.co.uk/docs/TermsAndConditions.pdf" target="_blank">Terms of use and Privacy Policy</a></li>
+                            <li><a href="http://www.involvedtech.co.uk/docs/FAQS.pdf" target="_blank">FAQs</a></li>
+                            <li><a class="custome_cursor" data-toggle="modal" data-target="#pswrd" ng-click="change_pwd();reset_change_pwd();" style="border-bottom: 1px solid #f8f8f8;">Change Password</a></li>
+                        </ul>  
+                      </div>
+                    </div>
+                    
+                    <div class="inner_right">
+                        <div class="send_feed">Contact Us/Send Feedback</div>
+                        <div class="comnt_outr" id="content-2">
+                            <textarea id="query" placeholder="Please enter query information" maxlength="2000"></textarea>
+                        </div>
+						
+						<!--file upload for contact us----------->
+                        <div class="fileUpload attach_scrn" style="cursor: pointer;border-bottom: none;" ng-click="attach4()">
+                            <!--<textarea  placeholder="Attach Screenshot"></textarea>-->
+							<div class="file_name" style="cursor: pointer;">Attach Screenshot</div>
+							<span style="cursor: pointer;float:right;" >
+								<img id="attach_pic4" src="images/attach_pic.png" alt="">
+								<img id="add_more4" class="add_more" src="images/add_more.png" style="display: none;" alt="">
+							</span>
+							
+                        </div>
+						<div class="outter clearfix" id="adddiv4"></div>
+						<input type="hidden" name="fileNum4" id="fileNum4" value="0">
+						<input type="hidden" name="file_size4" id="file_size4" value="0">
+						
+					
+                        <div class="set_task">
+                            <button id="contact_us_submit" ng-click="contact_us_submit();">Submit</button>
+                        </div>
+                    </div>
+               </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--setting end-->
+    
+<!--change password modal-->
+<div class="modal fade attach_photo task-description" id="pswrd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button id="change_pwd_close" type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><img src="images/popup-cross.png" alt="popup-cross" /></span></button>
+                <h3>Change Password</h3>
+            </div>
+            <div class="modal-body clearfix">
+                <div class="pswrd_inr">
+					<input type="password" id="currentPwd"   placeholder="Current Password" maxlength="20" ng-class="{{errorclass1}}">
+					<input type="password" id="newPwd"       placeholder="New Password" maxlength="20" ng-class="{{errorclass2}}">
+					<input type="password" id="retypeNewPwd" placeholder="Re-type New Password" maxlength="20" ng-class="{{errorclass3}}">
+					<div class="set_task">
+					    <button id="change_pwd_submit" ng-click="change_pwd_submit();">Submit</button>
+					</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--------------------------->
+
+<!--settaskconfirm pop up-->
+<input id="confy" type="button" data-toggle="modal" data-target="#settaskconfirm_modal" style="display:none">
+
+<div class="modal fade attach_photo" id="settaskconfirm_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body clearfix">
+               <span>{{message}}</span>
+               <div class="delete_btn">  	
+                    <a class="custome_cursor yes_bg"  aria-label="Close" data-dismiss="modal" aria-label="Close">OK</a>
+               </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--settaskconfirm pop end-->
+
+
+<input id="fileErr" type="button" data-toggle="modal" data-target="#fileErr_modal" style="display:none">
+<!--settaskconfirm pop up-->
+<div class="modal fade attach_photo" id="fileErr_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body clearfix">
+             <span id="fileUploadErrMsg"></span>
+               <div class="delete_btn">  	
+                    <a class="custome_cursor yes_bg"  aria-label="Close" data-dismiss="modal" aria-label="Close">OK</a>
+               </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--settaskconfirm pop end-->
+
+<input id="dataLostConfy" type="button" data-toggle="modal" data-target="#lostConfy_modal" style="display:none">
+<!--settaskconfirm pop up-->
+<div class="modal fade attach_photo" id="lostConfy_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body clearfix">
+               <span><h4 style="color: #54c9e8">Any updated task data will be lost.</h4><br>Are you sure you want to leave this screen?</span>
+               <div class="delete_btn">  	
+                    
+                    <a class="yes_bg custome_cursor" data-dismiss="modal" aria-label="Close"  ng-click="cancelTask();">Yes</a>
+					<a class="custome_cursor" data-dismiss="modal" aria-label="Close">No</a>
+					
+               </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--settaskconfirm pop end-->
+
+
+
+<input id="dataLostConfyPop" type="button" data-toggle="modal" data-target="#lostConfy_modal2" style="display:none">
+<!--settaskconfirm pop up-->
+<div class="modal fade attach_photo" id="lostConfy_modal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body clearfix">
+               <span><h4 style="color: #54c9e8">Any updated task data will be lost</h4><br>Are you sure you want to leave this screen?</span>
+               <div class="delete_btn">  	
+                   
+                    <a class="yes_bg custome_cursor" data-dismiss="modal" aria-label="Close"  ng-click="yesBtnClick();">Yes</a>
+					<a class="custome_cursor" data-dismiss="modal" aria-label="Close">No</a>
+					 
+               </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--settaskconfirm pop end-->
+
+
+<input id="dataLostConfyTab" type="button" data-toggle="modal" data-target="#lostConfy_modal3" style="display:none">
+<!--settaskconfirm pop up-->
+<div class="modal fade attach_photo" id="lostConfy_modal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body clearfix">
+               <span><h4 style="color: #54c9e8">Any updated task data will be lost.</h4><br>Are you sure you want to leave this screen?</span>
+               <div class="delete_btn">  	
+                    <a class="yes_bg custome_cursor" data-dismiss="modal" aria-label="Close" ng-click="yesBtn();">Yes</a>
+					<a class="custome_cursor" data-dismiss="modal" aria-label="Close" ng-click="noBtn();">No</a>
+			   </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--fetures not supprted modal-->
+<!--<input id="supportfeature" type="button" data-toggle="modal" data-target="#featuressupport" style="display:none">
+
+<div class="modal fade attach_photo" id="featuressupport" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body clearfix">
+               <span><h4 style="color: #54c9e8"></h4><br>This feature has been disabled by the school</span>
+               <div class="delete_btn">  	
+                   
+					<a class="yes_bg custome_cursor" data-dismiss="modal" aria-label="Close" ng-click="noBtn();">Ok</a>
+			   </div>
+            </div>
+        </div>
+    </div>
+</div>-->
+
+
+<!--settaskconfirm pop -->
+<input id="successMsg" type="button" data-toggle="modal" data-target="#successMsg_modal" style="display:none">
+<!--settaskconfirm pop up-->
+<div class="modal fade attach_photo" id="successMsg_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body clearfix">
+               <span>{{successMsg}}</span>
+               <div class="delete_btn" id="successMsgClose">  	
+                    <a class="yes_bg custome_cursor" id="closeModal" data-dismiss="modal" aria-label="Close" style="display:none;">OK</a>
+               </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--settaskconfirm pop end-->
+
+<!--edit pop up-->
+<input id="successMsg1" type="button" data-toggle="modal" data-target="#successMsg_modal1" style="display:none" >
+<!--settaskconfirm pop up-->
+<div class="modal fade attach_photo" id="successMsg_modal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body clearfix">
+               <span>{{successMsg1}}</span>
+               <!--<div class="delete_btn" id="successMsgClose1">  	
+                    <a href="javascript:void(0)" class="yes_bg" id="closeModal1" data-dismiss="modal" aria-label="Close" style="display:none;">OK</a>
+               </div>-->
+            </div>
+        </div>
+    </div>
+</div>
+<!--settaskconfirm pop end-->
+
+
+<!--student_performance modal-->
+<div class="modal fade attach_photo" id="student_performance" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><img src="images/popup-cross.png" alt="popup-cross" /></span></button>
+                <h3>{{ClassName}}</h3>
+            </div>
+            <div class="modal-body clearfix">
+               <div class="task_inr clearfix task_inr_label">
+               		<div class="performance-table">
+                        <div class="performance-table-tr ">
+                                <div class="performance-table-th student_performance">
+                                    Student
+                                </div>
+                                <div class="performance-table-th">
+                                    {{HeaderCol1}}
+                                </div>
+                                <div class="performance-table-th">
+                                    {{HeaderCol2}}
+                                </div>
+                                <div class="performance-table-th">
+                                    {{HeaderCol3}}
+                                </div>
+								<div class="print_div">
+									
+									<!--<span class="performanceListPrintone" ng-click="graph_screenshot();">Print</span>-->
+								</div>
+                        </div>
+                    </div>
+                    <div class="student_grade_hd clearfix" id="modal_horizontal_line">
+                    	<div class="performance-table">
+                            <div class="performance-table-tr">
+                                    <div class="performance-table-td student_pic1">
+                                        <div class="student_pic {{IsUnlocked}}" ><img alt="" data-ng-src="data:image/png;base64,{{Image}}"></div>
+                                        <div class="student_title_area">
+                                            <h2>{{Name}}</h2>
+                                            <span class="psub">{{SubjectName}}</span>
+                                        </div>
+                                    </div>
+									
+									<div id="performance_upper">
+										
+										<!---ATTENDANCE begin--------------------->
+										<div class="performance-table-td perfGraph" id="Attendance_circle">
+										<div class="rating_outter backcolor_class">
+											<div class="value_area percentage_new p-green" ng-if="AttendanceTrend == 1"><i class="fa fa-caret-up pop-col" aria-hidden="true"></i> {{Attendance}}{{AttendanceUnit}}</div>
+											<div class="value_area percentage_new p-red" ng-if="AttendanceTrend == 3">{{Attendance}}{{AttendanceUnit}} <i class="fa fa-caret-down" aria-hidden="true"></i></div>
+											<div class="value_area orange_text" ng-if="AttendanceTrend == 2">{{Attendance}}{{AttendanceUnit}}</div>
+											<div class="value_area" ng-if="AttendanceTrend == 0">{{Attendance}}{{AttendanceUnit}}</div>
+											<div class="value_area" ng-if="AttendanceTrend == '' && AttendanceTrend == null && AttendanceTrend == undefined"></div>
+											
+											<svg ng-if="Attendance != '' && Attendance != null" xmlns="http://www.w3.org/2000/svg" width="297mm" height="210mm" viewBox="0 0 1052.3622 744.09448">
+												<g color="#000" fill="none" stroke-width="24">
+													<path id="carbs1" style="isolation:auto;mix-blend-mode:normal" d="M874.322 370.115a350.75 350.75 0 0 1-350.75 350.75 350.75 350.75 0 0 1-350.752-350.75 350.75 350.75 0 0 1 350.75-350.75 350.75 350.75 0 0 1 350.752 350.75z" overflow="visible" solid-color="#000000" stroke="#b981d1"/>
+												</g>
+											</svg>
+										</div>
+										</div>
+										<input type=hidden id="carbs-input" value="{{Attendance}}">
+										
+										
+										<!---TARGET begin--------------------->
+										<div class="performance-table-td perfGraph" id="TargetGrade_circle">
+										<div class="rating_outter trGrd">
+											<div class="value_area p-green" ng-if="TargetTrend == 1"><i class="fa fa-caret-up pop-col" aria-hidden="true"></i> {{TargetGrade}}{{TargetUnit}}</div>
+											<div class="value_area p-red" ng-if="TargetTrend == 3">{{TargetGrade}}{{TargetUnit}} <i class="fa fa-caret-down" aria-hidden="true"></i></div>
+											<div class="value_area orange_text" ng-if="TargetTrend == 2">{{TargetGrade}}{{TargetUnit}}</div>
+											<div class="value_area" ng-if="TargetTrend == 0">{{TargetGrade}}{{TargetUnit}}</div>
+											<div class="value_area" ng-if="TargetTrend == '' && TargetTrend == null && TargetTrend == undefined"></div>
+											<!--<div class="value_area">{{TargetGrade}}{{TargetUnit}}</div>-->
+											<!--<div class="value_area" ng-if="TargetGrade == '' && TargetGrade == null && TargetTrend == 0">{{TargetGrade}}{{TargetUnit}}</div>-->
+											<svg ng-if="TargetGrade != '' && TargetGrade != null && TargetGrade != undefined" xmlns="http://www.w3.org/2000/svg" width="297mm" height="210mm" viewBox="0 0 1052.3622 744.09448">
+												<g color="#000" fill="none" stroke-width="24">
+													<path id="proteins" style="isolation:auto;mix-blend-mode:normal" d="M874.322 370.115a350.75 350.75 0 0 1-350.75 350.75 350.75 350.75 0 0 1-350.752-350.75 350.75 350.75 0 0 1 350.75-350.75 350.75 350.75 0 0 1 350.752 350.75z" overflow="visible" solid-color="#000000" stroke="#48CAE5"/>
+												</g>
+											</svg>
+										</div>
+										</div>
+										
+										
+										<!---GRADE begin--------------------->
+										<div class="performance-table-td perfGraph" id="LastGrade_circle">
+											<div class="rating_outter grd">
+												<div class="value_area last_cell_d p-green" ng-if="GradeTrend == 1"><i class="fa fa-caret-up pop-col" aria-hidden="true"></i> {{LastGrade}}{{GradeUnit}}</div>
+												<div class="value_area last_cell_d p-red" ng-if="GradeTrend == 3">{{LastGrade}}{{GradeUnit}} <i class="fa fa-caret-down" aria-hidden="true"></i></div>
+												<div class="value_area last_cell_d orange_text" ng-if="GradeTrend == 2">{{LastGrade}}{{GradeUnit}}</div>
+												<div class="value_area last_cell_d" ng-if="GradeTrend == 0">{{LastGrade}}{{GradeUnit}}</div>
+												<div class="value_area last_cell_d" ng-if="GradeTrend == '' && GradeTrend == null && GradeTrend == undefined"> </div>
+												<svg ng-if="LastGrade != '' && LastGrade != null" xmlns="http://www.w3.org/2000/svg" width="297mm" height="210mm" viewBox="0 0 1052.3622 744.09448">
+													<g color="#000" fill="none" stroke-width="24">
+														<path  ng-if="GradeTrend == 1" id="fat1" style="isolation:auto;mix-blend-mode:normal" d="M874.322 370.115a350.75 350.75 0 0 1-350.75 350.75 350.75 350.75 0 0 1-350.752-350.75 350.75 350.75 0 0 1 350.75-350.75 350.75 350.75 0 0 1 350.752 350.75z" overflow="visible" solid-color="#000000" stroke="#6bc04b"/>
+														<path ng-if="GradeTrend == 3" id="fat2" style="isolation:auto;mix-blend-mode:normal" d="M874.322 370.115a350.75 350.75 0 0 1-350.75 350.75 350.75 350.75 0 0 1-350.752-350.75 350.75 350.75 0 0 1 350.75-350.75 350.75 350.75 0 0 1 350.752 350.75z" overflow="visible" solid-color="#000000" stroke="#ff3c1f"/>
+														<path ng-if="GradeTrend == 2" id="fat3" style="isolation:auto;mix-blend-mode:normal" d="M874.322 370.115a350.75 350.75 0 0 1-350.75 350.75 350.75 350.75 0 0 1-350.752-350.75 350.75 350.75 0 0 1 350.75-350.75 350.75 350.75 0 0 1 350.752 350.75z" overflow="visible" solid-color="#000000" stroke="#ff7800"/>
+														<path ng-if="GradeTrend == 0" id="fat4" style="isolation:auto;mix-blend-mode:normal" d="M874.322 370.115a350.75 350.75 0 0 1-350.75 350.75 350.75 350.75 0 0 1-350.752-350.75 350.75 350.75 0 0 1 350.75-350.75 350.75 350.75 0 0 1 350.752 350.75z" overflow="visible" solid-color="#000000" stroke="#111"/>
+													</g>
+												</svg>
+											</div>
+										</div>
+									
+										
+										
+									</div>
+									
+                               </div>
+                    	</div>	
+                    </div>
+					<!----PERFORMANCE GRAPH-------------->
+                    <div class="grade_pic">
+					
+						<div id="noRecord12" class="noRecordClass">{{studentPerformanceNoData}}</div>
+						<div id="graph_container" class="showStudentDiv" style="padding-top: 10px;padding-right: 10px;padding-bottom: 10px;padding-left: 10px;display:none">
+						<div id="preloader_right_content7" style="display:none;height: 400px;">
+							<div id="status_right_content7"></div>
+						</div>	
+							
+						</div>
+					</div>
+               </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!---student_performance end--->
+
+
+<input id="confy1" type="button" data-toggle="modal" data-target="#settaskconfirm_modal_login" style="display:none">
+<!--NO INTERNER CONNECTION pop up-->
+<div class="modal fade attach_photo" id="settaskconfirm_modal_login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog loginMod" role="document">
+        <div class="modal-content">
+            <div class="modal-body clearfix">
+               <span id="msg_text">{{msg}}</span>
+               <div class="delete_btn">  	
+                    <a class="yes_bg custome_cursor"  aria-label="Close" data-dismiss="modal" aria-label="Close">OK</a>
+               </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!---student profile pop----- -->
+<div class="modal fade attach_photo" id="student_pop" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" id="studSrchDiv" name="studSrchDiv">
+			<div id="preloader_right_content6" style="display:none">
+				<div id="status_right_content6"></div>
+			</div>
+            <div class="modal-header">
+                <button type="button" class="close" ng-click="performance_graph_close();" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><img src="images/popup-cross.png" alt="popup-cross" /></span></button>
+                <div id="student_pic_print" class="student_pic {{IsUnlocked}}"><img data-ng-src="data:image/png;base64,{{Image}}" alt="student-pic"></div>
+                <div class="student_title_area" id="student_title_area_print">
+                	<h2>{{Name}}</h2>
+                    <span>{{Year}}</span>
+                </div>
+		<div style="display: inline-block;vertical-align: middle;margin-left: 20px;float: right;margin-top: 18px;margin-right: 3%;" class="studSrchPrint">
+		 	
+		 	<!--<button class="print_btn1" id="student_performance_print" style="display: none;" onclick="printDivVersion2();">Print</button>-->
+		 	
+		</div>
+            <div class="modal-body clearfix">
+               <div class="task_inr clearfix">
+                    <div class="inner_left" id="inner_left_print">
+						<div id="noRecord10" class="noRecordClass">
+							<div><b>{{studentPerformanceList1}}</b></div>
+							<div>{{studentPerformanceList2}} </div>
+							<div>{{studentPerformanceList3}}</div>
+							<div>{{studentPerformanceList4}}</div>
+						</div>
+                    	<div class="performance-table showStudentDiv">
+                            <div class="performance-table-tr">
+                                <div class="performance-table-th">
+                                    Class
+                                    <!--<span style="display: none;" class="performanceListPrint" onclick="performanceListPrint();">Print</span>-->
+                                </div>     
+                                <div class="performance-table-th performanceList1">
+                                       {{profileperlist[0].Performance.Column1.Header}}
+                                </div>
+                                <div class="performance-table-th performanceList2">
+                                      {{profileperlist[0].Performance.Column2.Header}}
+                                </div>
+                                <div class="performance-table-th performanceList3">
+                                     {{profileperlist[0].Performance.Column3.Header}}
+                                </div>
+                           </div>
+                        </div>
+						
+                    	<div class="performance-table-wrap content showStudentDiv">
+                            <div class="performance-table">
+							   <div class="noRecordClass">{{studentprofileMessage}}</div>
+                               <div class="performance-table-tr prof" ng-repeat="profileper in profileperlist" id="prof{{profileper.Id}}"  ng-click="graphstudentPerformanceSubjectwise(profileper.Id,profileper.Performance.Column3.Trend,profileper.SubjectName,profileperlist[0].Performance.Column3.Header);">
+                                    <div class="performance-table-td prflft">
+                                        <div class="performance-pic" ng-class="profileper.IsUnlocked == true ? 'outr_border' :''">
+                                            <!--<img alt="performance-pic" data-ng-src="data:image/png;base64,{{profileper.ClassTeachers[0].Image}}" class="mCS_img_loaded">-->
+					                    <div class="slider">
+													<img ng-class="({{profileper.ClassTeachers.length}} > 1)?'slide{{$index+1}}':''" alt="performance-pic" data-ng-src="data:image/png;base64,{{profileperimg.Image}}" class="mCS_img_loaded"  ng-repeat="profileperimg in profileper.ClassTeachers">
+											</div>
+                                        </div>
+                                        <span class="performance-name performance-name-custom performance-name-custom-print">
+                                            <a href="#" class="sub_name sub_name_print">{{profileper.SubjectName}}</a>
+											<span class="student_category student_category_print" ng-if="profileper.ClassTeachers.length>1"><marquee style="width: 115px;" behavior="scroll" direction="left" scrollamount="2"> <b ng-repeat="profilepername in profileper.ClassTeachers">{{profileper.Title}} {{profilepername.Name}}{{($index+1==profileper.ClassTeachers.length)?"":","}} </b></marquee></span>
+										 <span class="student_category student_category_print" ng-if="profileper.ClassTeachers.length==1"> <b ng-repeat="profilepername in profileper.ClassTeachers">{{profileper.Title}} {{profilepername.Name}}{{($index+1==profileper.ClassTeachers.length)?"":","}} </b></span>
+                                        </span>
+                                    </div>
+									<!--ATTENDANCE----------- -->
+                                    <div class="performance-table-td studproflist1">
+                                        <span ng-class="(profileper.Performance.Column1.Trend == 1 ? 'p-green' : (profileper.Performance.Column1.Trend == 3 ? 'p-red' : (profileper.Performance.Column1.Trend == 2 ?'orange_text':'')))" class="studproflist">{{profileper.Performance.Column1.Value}}{{profileper.Performance.Column1.Unit}}
+                                        <i ng-if="profileper.Performance.Column1.Trend == 1" class="pi-green"></i>
+            							<i ng-if="profileper.Performance.Column1.Trend == 3" class="pi-red"></i>
+                                        </span>
+                                    </div>
+									<!--TARGET--------------- -->
+                                    <div class="performance-table-td studproflist2">
+                                        <span ng-class="(profileper.Performance.Column2.Trend == 1 ? 'p-green' : (profileper.Performance.Column2.Trend == 3 ? 'p-red' : (profileper.Performance.Column2.Trend == 2 ?'orange_text':'')))" class="studproflist">{{profileper.Performance.Column2.Value}}{{profileper.Performance.Column2.Unit}}
+                                        <i ng-if="profileper.Performance.Column2.Trend == 1" class="pi-green"></i>
+            							<i ng-if="profileper.Performance.Column2.Trend == 3" class="pi-red"></i>
+                                        </span>
+                                    </div>
+									<!--GRADE---------------- -->
+                                    <div class="performance-table-td studproflist3">
+                                        <span ng-class="(profileper.Performance.Column3.Trend == 1 ? 'p-green' : (profileper.Performance.Column3.Trend == 3 ? 'p-red' : (profileper.Performance.Column3.Trend == 2 ?'orange_text':'')))" class="studproflist">{{profileper.Performance.Column3.Value}}{{profileper.Performance.Column3.Unit}}
+                                        <i ng-if="profileper.Performance.Column3.Trend == 1" class="pi-green"></i>
+            							<i ng-if="profileper.Performance.Column3.Trend == 3" class="pi-red"></i>
+                                        </span>
+                                    </div>
+                              </div>
+                           </div>
+                        </div>
+                    </div>
+                    <div class="inner_right">
+					<div id="noRecord11" class="noRecordClass">
+							<div><b>{{studentPerformanceData1}}</b></div>
+							<div>{{studentPerformanceData2}}</div>
+							<div>{{studentPerformanceData3}}</div>
+							<div>{{studentPerformanceData4}}</div>
+					</div>
+                        <div class="performance-table showStudentDiv" id="indistudgraph">
+                           <div class="performance-table-tr">
+                                <div class="performance-table-th">
+                                    Performance Graph
+                                </div>
+                           </div>
+                           <div class="subject subject_print">{{NameofSubject}}</div>
+                           <div class="graph_pic"><div id="graph_container_popup"></div></div>
+                        </div>
+		        <div id="featuredisabled" style="display: none;">
+				<div id="disabledtxt"><b>Student Performance Graph feature has been disabled by the school</b></div>
+			</div>
+                    </div>
+               </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!---end of student profile pop------->
+<!-----FIELD USED FOR REMOVE FILE------------------------------->
+<input type="hidden" class="noOfItems" id="noOfItems" value="0">
+</div>
+<input id="cookieLost" type="button" data-toggle="modal" data-target="#cookieLost_modal" style="display:none">
+<!--settaskconfirm pop up-->
+<div class="modal fade attach_photo" id="cookieLost_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body clearfix">
+               <span><h4 style="color: #54c9e8">You have been signed out </h4><br>Please sign in again to view your account and make changes.</span>
+               <div class="delete_btn">  	
+                    <a class="custome_cursor yes_bg" data-dismiss="modal" aria-label="Close" ng-click="logout()">Sign in</a>				
+               </div>
+            </div>
+        </div>
+    </div>
+</div>
+<input id="networkConnection" type="button" data-toggle="modal" data-target="#networkConnection_modal" style="display:none">
+<!--NO INTERNER CONNECTION pop up-->
+<div class="modal fade attach_photo" id="networkConnection_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog loginMod" role="document">
+        <div class="modal-content">
+            <div class="modal-body clearfix">
+               <span id="msg_text"><h4 style="color: #54c9e8">No network available</h4><br>Please check your internet connection</span>
+               <div class="delete_btn">  	
+                    <a class="yes_bg custome_cursor"  aria-label="Close" data-dismiss="modal" aria-label="Close" id="internateClose" style="display: none;">OK</a>
+               </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--NO INTERNER CONNECTION pop end-->
+</body>

@@ -1,0 +1,110 @@
+﻿<!DOCTYPE html>
+<html lang="en" ng-app="routerApp">
+
+    <head>
+		<!--meta tag-->  
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=11,IE=edge,chrome=1" />
+		<!--<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />-->
+		<meta name="description" content="involved" /> 
+		<meta name="author" content="admin" />
+
+		<!--favicon-->
+		<link rel="icon" href="images/favicon.png" type="image/x-icon" />
+        <link rel="icon" href="images/favicon.png" type="image/png" />
+
+        <!--fonts-->
+        <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css' />
+        <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,900italic,900,700italic,700,500,500italic,400italic' rel='stylesheet' type='text/css' />
+		<link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+		<link href="../assets/css/jquery-ui.css" rel="stylesheet" type="text/css" />            
+        <link href="../assets/css/slick.css" rel="stylesheet" type="text/css" />
+		<link href="css/circle.css" rel="stylesheet" type="text/css" />
+		<link href="css/jquery.mCustomScrollbar.css" rel="stylesheet" type="text/css" />
+        <link href="angular_loading_bar/loading-bar.css" rel="stylesheet" type="text/css" />
+        <link href="css/bootstrap.css" rel="stylesheet" type="text/css" />
+        <link href="css/bootstrap-select.css" rel="stylesheet" type="text/css" />
+	<link href="css/toaster.css" rel="stylesheet" type="text/css" />
+        <!--custom-->
+		<link href="css/custom.css" rel="stylesheet" type="text/css" />
+		<link href="css/developer.css" rel="stylesheet" type="text/css" />
+		<!--<link href="css/responsive.css" rel="stylesheet" type="text/css" />
+-->
+        <!--original links-->
+        <!--<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />-->
+        <!--<link href="https://vasyabigi.github.io/angular-slick/bower_components/slick-carousel/slick/slick.css" rel='stylesheet' type='text/css' />-->
+
+		<title>InvolvEd</title>
+		<base href="/lab3/involved/teacher/">
+        <!--<signalr href="https://localhost:4444">--><!--Debug-->
+        <signalr href="https://server.involvedtech.co.uk:4444"><!--Dev-->
+        <!--<signalr href="https://server.involvedtech.co.uk:1443">--><!--Live-->
+	</head>
+	<body>
+		<!--<div id="loader" style="background: black;position: fixed;left: 0px;right: 0px;top: 0px;display: block;z-index: 999;bottom: 0px"><img src="images/Loading.gif" style="position: absolute;top: 50%;left: 50%;margin-left: -56px;"></div>-->
+		<div ui-view="header"></div>
+		<div ui-view="content"></div>
+		<div ui-view="footer" id="footer"></div>
+
+		<script type="text/javascript" src="js/jquery-1.11.1.js"></script>
+        <!--<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>-->
+		
+		<script type="text/javascript" src="js/jquery-ui.js"></script>		
+		<!--<script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>-->
+
+        <script type="text/javascript" src="js/jquery.signalR-2.2.1.min.js"></script> 
+		<script type="text/javascript" src="js/angular.min.js"></script> 
+		<script type="text/javascript" src="js/angular-ui-router.min.js"></script>
+		<script type="text/javascript" src="js/angular-touch.js"></script>
+		<script type="text/javascript" src="js/angular-sanitize.js"></script>
+		<script type="text/javascript" src="http://code.angularjs.org/1.3.3/angular-animate.min.js"></script>
+
+		<script type="text/javascript" src="js/bootstrap.js"></script>
+		<script type="text/javascript" src="js/bootstrap-select.js"></script>
+		<script type="text/javascript" src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+		<script type="text/javascript" src="js/taggedInfiniteScroll.js"></script>
+        <script type="text/javascript" src="../assets/js/slick.min.js"></script>
+        <script type="text/javascript" src="../assets/js/jquery.nav.js"></script>
+        <script type="text/javascript" src="../assets/js/placeholders.min.js"></script>
+		<script type="text/javascript" src="js/highcharts.js"></script>
+		<script type="text/javascript" src="js/exporting.js"></script>
+        <script type="text/javascript" src="angular_loading_bar/loading-bar.js"></script>
+	<script type="text/javascript" src="js/toaster.js"></script>
+
+
+        <script type="text/javascript" src="js/slick.js"></script>
+        <script type="text/javascript" src="js/function.js"></script>
+        <script type="text/javascript" src="../assets/js/custom.js"></script>
+        <script type="text/javascript" src="js/developer.js"></script>
+
+        <script type="text/javascript" src="app/app.js"></script>
+        <script type="text/javascript" src="app/constants/constantsProvider.js"></script>
+
+	    <script type="text/javascript" src="app/services/eventService.js"></script>
+		<script type="text/javascript" src="app/services/loginService.js"></script>
+		<script type="text/javascript" src="app/services/homeService.js"></script>
+		<script type="text/javascript" src="app/services/service2.js"></script>
+        <script type="text/javascript" src="app/services/notificationService.js"></script>
+
+		<script type="text/javascript" src="app/controller/loginCtrl.js"></script>
+		<script type="text/javascript" src="app/controller/homeCtrl.js"></script>
+		<script type="text/javascript" src="app/controller/testeditctrl.js"></script>
+		<script type="text/javascript" src="app/controller/ctrl2.js"></script>	
+
+
+        <!--[if lt IE 11]>
+        <script type="text/javascript" src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script type="text/javascript" src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <script type="text/javascript" src="js/css3-mediaqueries.js"></script>
+        <![endif]-->
+
+		<!-- Smooth Touch Scroll -->
+		<!--<script type="text/javascript" src="js/Scroll/jquery.kinetic.min.js"></script>
+		<script type="text/javascript" src="js/Scroll/jquery.smoothTouchScroll.min.js"></script>-->
+
+        <!--original links-->
+        <!--<script type="text/javascript" src="https://jamesallardice.github.io/Placeholders.js/assets/js/placeholders.min.js"></script>-->
+
+	</body>
+</html>

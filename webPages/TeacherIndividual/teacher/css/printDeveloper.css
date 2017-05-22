@@ -1,0 +1,259 @@
+/*************************  CSS ONLY FOR PRINT FUNCTION   ****************************/
+.performance-table-tr {
+     color: #337ab7;
+    text-decoration: none;
+    margin-right: 50% !important;
+}
+
+
+#performance .p-red, #student_pop .p-red {
+    border-color: transparent transparent #ff3c1f;
+    border-style: solid;
+    border-width: 7px 5px;
+    content: "";
+    display: inline-block;
+    margin-left: 8px;
+    margin-top: -1px;
+    position: absolute;
+    top: 50%;
+    border-top: 7px solid;
+    border-bottom: none;
+    transform: translateY(-50%);
+}
+
+
+
+#performance .p-green:after, #student_pop .p-green:after {
+    border-color: transparent transparent #6bc04b;
+    border-style: solid;
+    border-width: 7px 5px;
+    content: "";
+    display: inline-block;
+    margin-left: 8px;
+    margin-top: -5px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/*.fa{display:inline-block;font:normal normal normal 14px/1 FontAwesome;font-size:inherit;text-rendering:auto;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+.fa-caret-down:after{content:"\f0d7"}
+.fa-caret-up:after{content:"\f0d8"}*/
+
+/*.performance-table-tr .performance-table-th:nth-child(2) {
+
+        border-right: 2px solid red !important;
+}*/
+
+.performance-table-td {
+    padding-top: 12px !important;
+    padding-bottom: 12px !important;
+}
+
+/*##############  For student_performance_print print Css Start Here  ###############*/
+.student_category_print{
+    float: left;
+}
+.sub_name_print{
+    text-decoration: none;
+}
+.subject_print{
+    font-size: 18px !important;
+    color: #54c9e8 !important;
+    margin: 10px 0 !important;
+    display: table-row;
+}
+
+.inner_right .performance-table-th {
+     text-align: center !important; 
+}
+
+.inner_right .performance-table-th:first-child {
+     padding-left: 0 !important; 
+}
+.inner_right{
+    padding: 0px 0px 0px !important;
+}
+i.fa.fa-caret-down {
+    /*margin-left: -5px !important;*/
+}
+
+.performance-table-th:first-child {
+   width: 31% !important;
+   }
+
+.graph_pic{
+    padding: 0 25px !important;
+}
+
+.full_std_srch_content .performance-table-th:nth-child(1) {
+    width: 54% !important;
+}
+.full_std_srch_content .performance-table-th:nth-child(2) {
+    /*width: 19% !important;*/
+    width: 14% !important;
+}
+.full_std_srch_content .performance-table-th:nth-child(3) {
+    width: 15% !important;
+}
+
+/*##############  For student_performance_print print Css Ends Here  ###############*/
+
+@media print {
+
+@page {
+    margin-bottom:15px;
+    /*border: 2px solid #bebebe;*/
+}
+
+body
+{
+  margin: 5mm 5mm 5mm 0mm;
+  /*border: 1px solid #bebebe;*/
+
+}
+
+
+.performance-table-th{
+    background: #bfbfbf;
+}
+
+
+}
+
+.print_page .modal-dialog{
+    width:auto !important;
+}
+.performance-name a {
+    display: block !important;
+}
+.performance-table-td{
+    vertical-align: middle;
+    width: 1.4% !important;
+}
+.performance-table-th:first-child{
+    width: 36% !important;
+}
+.print_page i{
+   display: block;
+}
+.task_inr_label :nth-child(4).performance-table-th{
+    /*padding-left: 14%;*/
+}
+.task_inr_label :nth-child(3).performance-table-th
+{
+     width: 21% !important;
+}
+.task_inr_label :nth-child(2).performance-table-th{
+    width: 20% !important;
+    /*padding-left: 22% !important;*/
+}
+:first-child.performance-table-th{
+    width: 36% !important;
+}
+:nth-child(2).performance-table-th{
+    width: 20% !important;
+      
+}
+:nth-child(3).performance-table-th
+{
+     width: 20% !important;
+}
+:nth-child(4).performance-table-th
+{
+     width: 20% !important;
+}
+.student_category_print_name{
+    overflow: hidden;;
+}
+:first-child.performance-table-th{
+    width: 21% !important;
+}
+.performanceListPrint{
+    margin-left: 10% !important;
+    padding: 4px 18px 6px !important;
+}
+.print_page .percentage_new.p-red i.fa-caret-down.fa, .print_page .percentage_new.p-green i.fa-caret-up.fa {
+    margin-left: 4px !important;
+    display: block;
+}
+.print_page .task_inr_label .performance-table-th:nth-child(2){
+    padding-right : 5% !important;
+}
+.print_page .rating_outter{
+    margin:0px -11px 0 auto;
+}
+#modal_horizontal_line .p-green i{
+    margin-left: 10px !important;
+}
+#modal_horizontal_line .last_cell_d.p-green i {
+    margin-left: -4px !important;
+}
+.fstchld{
+     padding-left: 4% !important;
+}
+     .performance-table-th .performanceList2
+     {
+          padding-right: 3%;
+     }
+     .studproflist1 .studproflist
+     {
+          padding-left: 4%;
+     }
+     .user_pic{
+          width:42px !important;
+          height: 42px !important;
+      }
+@media print and (orientation:landscape) {
+    .full_std_srch_content .performance-table-th:nth-child(1) {
+          width: 54% !important;
+      }
+     :nth-child(2).performance-table-th{
+        padding-right: 3%;
+     }
+/*     .performance-table-th.performanceList1.ng-binding
+     {
+          padding-left: 1%;
+     }*/
+     /*.performance-table-th .performanceList2
+     {
+          padding-right: 3%;
+     }*/
+}
+
+@media print and (orientation:portrait) {
+
+    .full_std_srch_content .performance-table-th:nth-child(1) {
+          width: 56% !important;
+      }
+     :nth-child(2).performance-table-th{
+        padding-right: 0;
+     }
+     .performance-table-th .performanceList1
+     {
+          padding-right: 1%;
+     }
+/*          .performance-table-th .performanceList2
+     {
+          padding-left: 1%;
+     }*/
+
+}
+i.fa.fa-caret-down.pi-print-stud-srch {
+    margin-left: -6px !important;
+}
+:first-child.performance-table-td{
+     width: 0.4% !important;
+     padding-left: 0px;
+}
+.last_cell_d i.fa.fa-caret-down {
+    margin-left: -0.4em;
+}
+.student_performance{
+     width: 39% !important;
+}
+@media print
+{
+     table { page-break-inside:auto }
+     div   { page-break-inside:avoid; } /* This is the key */
+}

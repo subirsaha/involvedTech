@@ -1,0 +1,24 @@
+# disable directory view on web pages
+Options -Indexes
+
+# re-direct 404 pages to home page
+ErrorDocument 404 /teacher/
+RewriteEngine on
+RewriteBase /teacher/
+
+### begin - ensure WWW & HTTPS
+# ensure www.
+RewriteCond %{HTTP_HOST} !^www\. [NC]
+RewriteRule ^ https://www.%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# ensure https
+RewriteCond %{HTTP:X-Forwarded-Proto} !https
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+### end - ensute WWW & HTTPS
+
+RewriteRule ^login$ #/login
+RewriteRule ^forgotpassword$ #/forgotpassword
+RewriteRule ^home$ #/home
+RewriteRule ^hometest$ #/hometest
+RewriteRule ^testing$ #/testing
